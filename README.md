@@ -1,2 +1,2 @@
 # mern-ecommerce
-An e commerce/ online clothing sopping site using MERN stack
+An e commerce/ online clothing shopping site using MERN stack
