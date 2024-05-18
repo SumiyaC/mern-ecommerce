@@ -1,0 +1,112 @@
+/* Navbar.css */
+
+/* First Navbar (Help & FAQs and Language) */
+.navbar-top {
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .navbar-top .nav-item {
+    margin-left: 1rem;
+  }
+  
+  /* Language Dropdown */
+  .navbar-top .dropdown-menu {
+    min-width: 5rem;
+  }
+  
+  /* Second Navbar (Brand, Men, Women, Search, Icons) */
+  .navbar-middle {
+    background-color: #343a40;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-middle .navbar-brand,
+  .navbar-middle .nav-item {
+    color: #fff;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  
+  .navbar-middle .nav-item:hover {
+    color: #ccc;
+  }
+  
+  .navbar-middle .search-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .navbar-middle .search-bar input {
+    width: 100%;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+  }
+  
+  .navbar-middle .search-bar .fa-search {
+    position: absolute;
+    right: 10px;
+    color: #888;
+  }
+  
+  .navbar-middle .icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-middle .icons .nav-item {
+    margin-left: 1rem;
+    color: #fff;
+  }
+  
+  /* Hover dropdown menu */
+  .navbar-middle .dropdown:hover .dropdown-menu,
+  .navbar-top .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
+  .navbar-middle .icons .dropdown-menu {
+    min-width: 10rem;
+    position: absolute;
+  }
+  
+  /* Third Navbar (Categories) */
+  .navbar-bottom {
+    background-color: #f8f9fa;
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbar-bottom .dropdown-menu {
+    min-width: 10rem;
+  }
+  
+  .navbar-bottom .nav-item {
+    position: relative;
+  }
+  
+  .navbar-bottom .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  .navbar-bottom .nav-item:hover .dropdown-menu {
+    display: block;
+  }
+  
+  /* Fourth Navbar (Promotional Message) */
+  .navbar-promo {
+    background-color: #6c757d;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    color: white;
+  }
+  
