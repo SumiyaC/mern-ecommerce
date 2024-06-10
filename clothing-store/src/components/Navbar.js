@@ -112,7 +112,7 @@ const NavigationBar = () => {
 
       <Navbar bg="secondary" variant="light" className="navbar-promo">
         <Container className="justify-content-center">
-          <span className="text-white">New here? Get 25% off on your 1st purchase! Use our code: ProthomK</span>
+          <span className="text-white">New here? Get 25% off on your 1st purchase! Use our code: ProthomKroi</span>
         </Container>
       </Navbar>
     </>

@@ -1,0 +1,127 @@
+/* src/pages/HomePage.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* background-color: #0a0a0b; */
+}
+
+.homepage {
+  padding: 20px;
+}
+
+.main-section {
+  position: relative;
+  height: 80vh; /* Adjust the height*/
+  overflow: hidden;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+.main-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 90px 110px; /* Increase the padding to make the background larger */
+  text-align: center;
+  
+}
+
+.categories-section, .featured-products-section, .newsletter-section {
+  margin-top: 40px;
+}
+
+.categories-section h2, .featured-products-section h2, .newsletter-section h2 {
+  margin-bottom: 20px;
+  font-size: 25px; /* Increase font size for headers */
+  font-weight: 550; /* Make headers bold */
+  text-align: center; /* Center align the headers */
+  color: #333; /* Darker color for better visibility */
+  text-transform: uppercase; /* Uppercase text for a more professional look */
+}
+
+.categories, .products {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.category, .product {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.category img, .product img {
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  /* border-radius: 5px; */
+}
+
+.category-name, .product-name {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 550;
+  color: #555; /* Slightly darker color for category/product names */
+}
+
+.product-price {
+  margin-top: 5px;
+  font-size: 16px;
+  color: #888;
+}
+
+.add-to-cart {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  /* border-radius: 5px; */
+  cursor: pointer;
+}
+
+.add-to-cart:hover {
+  background-color: #0056b3;
+}
+
+.newsletter-section form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newsletter-section input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  width: 300px;
+}
+
+.newsletter-section button {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.newsletter-section button:hover {
+  background-color: #0056b3;
+}
