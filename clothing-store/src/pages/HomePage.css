@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* background-color: #0a0a0b; */
+  background-color: #f7f7f7; /* Very light gray background */
 }
 
 .homepage {
@@ -16,7 +16,7 @@ body {
 
 .main-section {
   position: relative;
-  height: 80vh; /* Adjust the height*/
+  height: 66vh; /* Adjust the height to fit 2/3 of the viewport height */
   overflow: hidden;
 }
 
@@ -35,9 +35,9 @@ body {
   font-size: 36px;
   font-weight: bold;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 90px 110px; /* Increase the padding to make the background larger */
+  padding: 40px 80px; /* Increase the padding to make the background larger */
   text-align: center;
-  
+  border-radius: 5px; /* Add a slight border radius for better appearance */
 }
 
 .categories-section, .featured-products-section, .newsletter-section {
@@ -46,8 +46,8 @@ body {
 
 .categories-section h2, .featured-products-section h2, .newsletter-section h2 {
   margin-bottom: 20px;
-  font-size: 25px; /* Increase font size for headers */
-  font-weight: 550; /* Make headers bold */
+  font-size: 32px; /* Increase font size for headers */
+  font-weight: 700; /* Make headers bold */
   text-align: center; /* Center align the headers */
   color: #333; /* Darker color for better visibility */
   text-transform: uppercase; /* Uppercase text for a more professional look */
@@ -68,34 +68,33 @@ body {
   width: 100%;
   height: 200px; /* Adjust height as needed */
   object-fit: cover; /* Ensures the image covers the area without distortion */
-  /* border-radius: 5px; */
+  border-radius: 5px;
 }
 
 .category-name, .product-name {
   margin-top: 10px;
   font-size: 18px;
-  font-weight: 550;
+  font-weight: 700;
   color: #555; /* Slightly darker color for category/product names */
 }
 
-.product-price {
-  margin-top: 5px;
-  font-size: 16px;
-  color: #888;
+.view-all {
+  margin-top: 10px;
 }
 
-.add-to-cart {
-  margin-top: 10px;
+.view-all button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  /* border-radius: 5px; */
+  font-size: 16px;
+  font-weight: bold;
+  color: white; /* White text color */
+  background-color: #007bff; /* Blue background color */
+  border: none; /* No border */
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.add-to-cart:hover {
-  background-color: #0056b3;
+.view-all button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 .newsletter-section form {
@@ -116,12 +115,12 @@ body {
   padding: 10px;
   font-size: 16px;
   border: none;
-  background-color: #007bff;
-  color: white;
+  background-color: #007bff; /* Blue background color */
+  color: white; /* White text color */
   border-radius: 0 5px 5px 0;
   cursor: pointer;
 }
 
 .newsletter-section button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Darker blue on hover */
 }
