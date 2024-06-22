@@ -1,3 +1,5 @@
+/* src/App.css */
+
 .App {
   text-align: center;
 }
@@ -28,11 +30,23 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navigation-panel {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-weight: bold; /* Makes the text bold */
+}
+
+.navigation-panel a {
+  text-decoration: none;
+  color: #333;
+  margin-right: 10px;
+}
+
+.navigation-panel a:hover {
+  color: #61dafb;
+}
+
+.content {
+  padding: 20px;
 }

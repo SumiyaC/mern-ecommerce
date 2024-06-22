@@ -1,5 +1,6 @@
 // src/pages/HomePage.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './HomePage.css'; // Create and import a new CSS file for the HomePage styles
 
 const HomePage = () => {
@@ -21,10 +22,14 @@ const HomePage = () => {
             </div>
           </div>
           <div className="category">
-            <img src="/images/womenCate.jpg" alt="Women" />
+            <Link to="/women">
+              <img src="/images/womenCate.jpg" alt="Women" />
+            </Link>
             <div className="category-name">Women</div>
             <div className="view-all">
-              <button>View All</button>
+              <Link to="/women">
+                <button>View All</button>
+              </Link>
             </div>
           </div>
           <div className="category">
