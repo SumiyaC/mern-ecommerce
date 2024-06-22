@@ -1,33 +1,44 @@
+// src/pages/WomenPage.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
 const WomenPage = () => {
-  // Example array of product data
+  // Dummy product data for women's clothing
   const products = [
-    { id: 1, name: 'Product 1', imageUrl: '/images/product1.jpg' },
-    { id: 2, name: 'Product 2', imageUrl: '/images/product2.jpg' },
-    { id: 3, name: 'Product 3', imageUrl: '/images/product3.jpg' },
+    { id: 1, name: 'Women Product 1', price: 40, image: 'product1.jpg' },
+    { id: 2, name: 'Women Product 2', price: 50, image: 'product2.jpg' },
+    { id: 3, name: 'Women Product 3', price: 60, image: 'product3.jpg' },
     // Add more products as needed
   ];
 
   return (
-    <div className="page-container">
-      <div className="navigation-panel">
-        <Link to="/">Home</Link> {'>'} Women
-      </div>
-      <div className="content">
-        <h1>Welcome to Women's Clothing</h1>
-        <div className="products">
-          {products.map((product) => (
-            <div key={product.id} className="product">
-              <img src={product.imageUrl} alt={product.name} />
-              <div className="product-name">{product.name}</div>
-              {/* Add more product details as needed */}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <Container className="page-container">
+      <Row className="navigation-panel mb-3">
+        <Col>
+          <Link to="/">Home</Link> {'>'} <strong>Women</strong>
+        </Col>
+      </Row>
+      <Row className="content">
+        <Col>
+          <h1>Welcome to Women's Clothing</h1>
+          <Row>
+            {products.map(product => (
+              <Col key={product.id} md={4} className="mb-4">
+                <Card>
+                  <Card.Img variant="top" src={product.image} />
+                  <Card.Body>
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Text>${product.price}</Card.Text>
+                    <Button variant="primary">View Details</Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
