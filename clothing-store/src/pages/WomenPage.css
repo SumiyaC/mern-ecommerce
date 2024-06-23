@@ -1,32 +1,95 @@
-/* src/pages/WomenPage.css
+/* src/pages/MenPage.css */
 
-.women-page {
-    padding: 20px;
-  }
-  
-  .breadcrumb {
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-  
-  .breadcrumb a {
-    text-decoration: none;
-    color: #007bff;
-  }
-  
-  .breadcrumb a:hover {
-    text-decoration: underline;
-  }
-  
-  .breadcrumb .current {
-    font-weight: bold;
-    color: #555;
-  }
-  
-  h1 {
-    font-size: 32px;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 40px;
-  }
-   */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f7f7f7; /* Very light gray background */
+}
+
+.page-container {
+  padding: 20px;
+}
+
+.breadcrumb-container {
+  padding: 10px 0; /* Adjust vertical padding */
+  margin-bottom: 0; /* Remove bottom margin */
+}
+
+.breadcrumb-item {
+  font-size: 18px;
+  color: #555; /* Dark gray color */
+  padding: 0; /* Remove default padding */
+}
+
+.breadcrumb-item a {
+  color: #555; /* Dark gray color */
+  text-decoration: none; /* Remove underline */
+}
+
+.breadcrumb-item a:hover {
+  color: #aaa; /* Light gray color on hover */
+}
+
+.section-title {
+  font-size: 32px; /* Increase font size for headers */
+  font-weight: 700; /* Make headers bold */
+  text-align: center; /* Center align the headers */
+  color: #333; /* Darker color for better visibility */
+  text-transform: uppercase; /* Uppercase text for a more professional look */
+  margin-bottom: 20px;
+}
+
+.products-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.product-card {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 300px; /* Adjust as needed */
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px; /* Adjust height as needed */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  /* border-radius: 5px; */
+}
+
+.product-name {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #555; /* Slightly darker color for product names */
+}
+
+.product-price {
+  font-size: 16px;
+  color: #777; /* Gray color for price */
+}
+
+.view-details {
+  margin-top: 10px;
+}
+
+.view-details button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white; /* White text color */
+  background-color: #007bff; /* Blue background color */
+  border: none; /* No border */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-details button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

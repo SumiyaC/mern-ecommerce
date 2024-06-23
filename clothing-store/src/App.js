@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import WomenPage from './pages/WomenPage';
+import MenPage from './pages/MenPage';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/women" element={<WomenPage />} />
+          <Route path="/men" element={<MenPage />} />
           {/* Add more routes as needed */}
         </Routes>
       </div>

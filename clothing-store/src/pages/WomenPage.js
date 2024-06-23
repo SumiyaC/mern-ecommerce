@@ -1,45 +1,54 @@
 // src/pages/WomenPage.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Breadcrumb } from 'react-bootstrap';
+import './WomenPage.css';
 
 const WomenPage = () => {
-  // Dummy product data for women's clothing
-  const products = [
-    { id: 1, name: 'Women Product 1', price: 40, image: 'product1.jpg' },
-    { id: 2, name: 'Women Product 2', price: 50, image: 'product2.jpg' },
-    { id: 3, name: 'Women Product 3', price: 60, image: 'product3.jpg' },
-    // Add more products as needed
-  ];
-
   return (
     <Container className="page-container">
-      <Row className="navigation-panel mb-3">
-        <Col>
-          <Link to="/">Home</Link> {'>'} <strong>Women</strong>
+      <Breadcrumb className="breadcrumb-container">
+        <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>Women</Breadcrumb.Item>
+      </Breadcrumb>
+
+      <h2 className="section-title">Women's Collection</h2>
+
+      <Row className="products-section">
+        <Col className="product-card">
+          <Card>
+            <Card.Img variant="top" src="/images/women1.jpg" alt="Women Product 1" />
+            <Card.Body>
+              <Card.Title className="product-name">Women Product 1</Card.Title>
+              <Card.Text className="product-price">$49.99</Card.Text>
+              <Button variant="primary" className="view-details">View Details</Button>
+            </Card.Body>
+          </Card>
         </Col>
-      </Row>
-      <Row className="content">
-        <Col>
-          <h1>Welcome to Women's Clothing</h1>
-          <Row>
-            {products.map(product => (
-              <Col key={product.id} md={4} className="mb-4">
-                <Card>
-                  <Card.Img variant="top" src={product.image} />
-                  <Card.Body>
-                    <Card.Title>{product.name}</Card.Title>
-                    <Card.Text>${product.price}</Card.Text>
-                    <Button variant="primary">View Details</Button>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
-          </Row>
+        <Col className="product-card">
+          <Card>
+            <Card.Img variant="top" src="/images/women3.jpg" alt="Women Product 2" />
+            <Card.Body>
+              <Card.Title className="product-name">Women Product 2</Card.Title>
+              <Card.Text className="product-price">$59.99</Card.Text>
+              <Button variant="primary" className="view-details">View Details</Button>
+            </Card.Body>
+          </Card>
         </Col>
+        <Col className="product-card">
+          <Card>
+            <Card.Img variant="top" src="/images/women2.jpg" alt="Women Product 3" />
+            <Card.Body>
+              <Card.Title className="product-name">Women Product 3</Card.Title>
+              <Card.Text className="product-price">$39.99</Card.Text>
+              <Button variant="primary" className="view-details">View Details</Button>
+            </Card.Body>
+          </Card>
+        </Col>
+        {/* Add more products as needed */}
       </Row>
     </Container>
   );
-}
+};
 
 export default WomenPage;

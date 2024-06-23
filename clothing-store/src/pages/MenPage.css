@@ -1,0 +1,47 @@
+/* src/App.css */
+
+.men-page {
+  padding: 20px;
+}
+
+.men-page h1 {
+  text-align: center;
+}
+
+.products {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Ensure products wrap properly */
+}
+
+.product {
+  width: 300px; /* Set a fixed width for each product card */
+  margin: 0 10px 20px; /* Adjust margins as needed */
+}
+
+.product .card {
+  height: 100%; /* Ensure cards are the same height */
+  display: flex; /* Align card contents vertically */
+  flex-direction: column; /* Align card contents vertically */
+}
+
+.product .card-body {
+  flex: 1; /* Expand to fill available space */
+  display: flex; /* Align card contents vertically */
+  flex-direction: column; /* Align card contents vertically */
+  justify-content: space-between; /* Space evenly between title and button */
+}
+
+.product .card-title {
+  font-weight: bold;
+}
+
+.product .card-text {
+  font-size: 16px;
+  color: #666;
+}
+
+.product .card-img-top {
+  height: 300px; /* Adjust image height as needed */
+  object-fit: cover;
+}

@@ -16,7 +16,7 @@ body {
 
 .main-section {
   position: relative;
-  height: 80vh; /* Adjust the height to fit 2/3 of the viewport height */
+  height: 75vh; /* Adjust the height to fit 2/3 of the viewport height */
   overflow: hidden;
 }
 
@@ -32,7 +32,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 36px;
+  font-size: 35px;
   font-weight: bold;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 40px 80px; /* Increase the padding to make the background larger */
