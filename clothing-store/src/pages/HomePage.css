@@ -1,9 +1,9 @@
 /* src/pages/HomePage.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Slab', serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -35,7 +35,7 @@ body {
   font-size: 35px;
   font-weight: bold;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 40px 80px; /* Increase the padding to make the background larger */
+  padding: 40px 60px; /* Increase the padding to make the background larger */
   text-align: center;
   /* border-radius: 5px;  */
 }
@@ -46,7 +46,7 @@ body {
 
 .categories-section h2, .featured-products-section h2, .newsletter-section h2 {
   margin-bottom: 20px;
-  font-size: 32px; /* Increase font size for headers */
+  font-size: 30px; /* Increase font size for headers */
   font-weight: 700; /* Make headers bold */
   text-align: center; /* Center align the headers */
   color: #333; /* Darker color for better visibility */
