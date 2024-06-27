@@ -3,9 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import './HomePage.css';
-//tst
-test
-//tst
+
 const HomePage = () => {
   return (
     <Container className="homepage">
