@@ -4,13 +4,16 @@ import './WomenPage.css';
 
 const WomenPage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showCartModal, setShowCartModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [cart, setCart] = useState(null);
   const [sortOrder, setSortOrder] = useState('');
 
   const initialProducts = [
-    { id: 1, name: 'Product A', price: 55, image: '/images/women1.jpg', description: 'Description of Product A', material: 'Material of Product A', care: 'Care advice for Product A', delivery: 'Delivery and payment info for Product A' },
-    { id: 2, name: 'Product B', price: 70, image: '/images/women3.jpg', description: 'Description of Product B', material: 'Material of Product B', care: 'Care advice for Product B', delivery: 'Delivery and payment info for Product B' },
-    { id: 3, name: 'Product C', price: 48, image: '/images/women2.jpg', description: 'Description of Product C', material: 'Material of Product C', care: 'Care advice for Product C', delivery: 'Delivery and payment info for Product C' },
+    { id: 1, name: 'Product 1', price: 50, image: '/images/women1.jpg', description: 'Description of Product 1', material: 'Material of Product 1', care: 'Care advice for Product 1', delivery: 'Delivery and payment info for Product 1' },
+    { id: 2, name: 'Product 2', price: 65, image: '/images/women2.jpg', description: 'Description of Product 2', material: 'Material of Product 2', care: 'Care advice for Product 2', delivery: 'Delivery and payment info for Product 2' },
+    { id: 3, name: 'Product 3', price: 45, image: '/images/women3.jpg', description: 'Description of Product 3', material: 'Material of Product 3', care: 'Care advice for Product 3', delivery: 'Delivery and payment info for Product 3' },
   ];
 
   const [products, setProducts] = useState(initialProducts);
@@ -39,6 +42,28 @@ const WomenPage = () => {
     setShowModal(false);
   };
 
+  const handleAddToCart = () => {
+    if (selectedProduct && selectedSize) {
+      setCart({
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        color: 'Default Color',  // Assuming a default color or you can add color to the product object
+        size: selectedSize,
+        quantity: 1,
+        subTotal: selectedProduct.price,
+        image: selectedProduct.image,  // Added product image to cart
+      });
+      setShowCartModal(true);
+      setShowModal(false);
+    } else {
+      alert("Please select a size.");
+    }
+  };
+
+  const handleCloseCartModal = () => {
+    setShowCartModal(false);
+  };
+
   return (
     <Container className="women-page">
       <Breadcrumb className="custom-breadcrumb">
@@ -59,15 +84,15 @@ const WomenPage = () => {
         <Dropdown className="filter-dropdown">
           <Dropdown.Toggle variant="link">Brand</Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item data-sort="brand-1">Brand X</Dropdown.Item>
-            <Dropdown.Item data-sort="brand-2">Brand Y</Dropdown.Item>
+            <Dropdown.Item data-sort="brand-1">Brand 1</Dropdown.Item>
+            <Dropdown.Item data-sort="brand-2">Brand 2</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <Dropdown className="filter-dropdown">
           <Dropdown.Toggle variant="link">Color</Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item data-sort="color-1">Color X</Dropdown.Item>
-            <Dropdown.Item data-sort="color-2">Color Y</Dropdown.Item>
+            <Dropdown.Item data-sort="color-1">Color 1</Dropdown.Item>
+            <Dropdown.Item data-sort="color-2">Color 2</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <Dropdown className="filter-dropdown">
@@ -81,8 +106,8 @@ const WomenPage = () => {
         <Dropdown className="filter-dropdown">
           <Dropdown.Toggle variant="link">Material</Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item data-sort="material-1">Silk</Dropdown.Item>
-            <Dropdown.Item data-sort="material-2">Linen</Dropdown.Item>
+            <Dropdown.Item data-sort="material-1">Cotton</Dropdown.Item>
+            <Dropdown.Item data-sort="material-2">Polyester</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <Dropdown className="filter-dropdown">
@@ -133,16 +158,19 @@ const WomenPage = () => {
               <p>Price: ${selectedProduct && selectedProduct.price}</p>
               <p>Choose Size:</p>
               <div className="size-options">
-                <Button variant="outline-dark" className="mr-2 mb-2">XXS</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">XS</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">S</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">M</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">L</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">XL</Button>
-                <Button variant="outline-dark" className="mb-2">XXL</Button>
+                {['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => (
+                  <Button
+                    key={size}
+                    variant={selectedSize === size ? 'dark' : 'outline-dark'}
+                    className="mr-2 mb-2"
+                    onClick={() => setSelectedSize(size)}
+                  >
+                    {size}
+                  </Button>
+                ))}
               </div>
               <p className="mt-3"><a href="#">Size Guide</a></p>
-              <Button variant="primary"><i className="fas fa-shopping-bag"></i> Add to Cart</Button>
+              <Button variant="primary" onClick={handleAddToCart}><i className="fas fa-shopping-bag"></i> Add to Cart</Button>
               <p>Members receive free delivery to pick up points for purchases over €30.</p>
               <h4 className="mt-4 mb-3">Description and Fit</h4>
               <Collapse in={true}>
@@ -175,7 +203,41 @@ const WomenPage = () => {
           <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
         </Modal.Footer>
       </Modal>
-      
+
+      {/* Modal for cart details */}
+      <Modal show={showCartModal} onHide={handleCloseCartModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>My Bag, {cart ? '1 item' : '0 items'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {cart && (
+            <div>
+              <Row>
+                <Col md={4}>
+                  <img src={cart.image} alt={cart.name} style={{ width: '100%' }} />
+                </Col>
+                <Col md={8}>
+                  <p><strong>Price:</strong> €{cart.price}</p>
+                  <p><strong>Name:</strong> {cart.name}</p>
+                  <p><strong>Colour:</strong> {cart.color}</p>
+                  <p><strong>Size:</strong> {cart.size}</p>
+                  <p><strong>Qty:</strong> 1</p>
+                  <p><strong>Sub-total:</strong> €{cart.subTotal}</p>
+                </Col>
+              </Row>
+            </div>
+          )}
+          <div className="cart-buttons mt-4">
+            <Button variant="outline-dark" className="mr-2" onClick={handleCloseCartModal}>View Cart</Button>
+            <Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
+          </div>
+          <p className="mt-3">Free Delivery Worldwide*</p>
+          <p>More info here...</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseCartModal}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

@@ -4,7 +4,10 @@ import './MenPage.css';
 
 const MenPage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showCartModal, setShowCartModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [cart, setCart] = useState(null);
   const [sortOrder, setSortOrder] = useState('');
 
   const initialProducts = [
@@ -37,6 +40,28 @@ const MenPage = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+  };
+
+  const handleAddToCart = () => {
+    if (selectedProduct && selectedSize) {
+      setCart({
+        name: selectedProduct.name,
+        price: selectedProduct.price,
+        color: 'Default Color',  // Assuming a default color or you can add color to the product object
+        size: selectedSize,
+        quantity: 1,
+        subTotal: selectedProduct.price,
+        image: selectedProduct.image,  // Added product image to cart
+      });
+      setShowCartModal(true);
+      setShowModal(false);
+    } else {
+      alert("Please select a size.");
+    }
+  };
+
+  const handleCloseCartModal = () => {
+    setShowCartModal(false);
   };
 
   return (
@@ -133,16 +158,19 @@ const MenPage = () => {
               <p>Price: ${selectedProduct && selectedProduct.price}</p>
               <p>Choose Size:</p>
               <div className="size-options">
-                <Button variant="outline-dark" className="mr-2 mb-2">XXS</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">XS</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">S</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">M</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">L</Button>
-                <Button variant="outline-dark" className="mr-2 mb-2">XL</Button>
-                <Button variant="outline-dark" className="mb-2">XXL</Button>
+                {['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => (
+                  <Button
+                    key={size}
+                    variant={selectedSize === size ? 'dark' : 'outline-dark'}
+                    className="mr-2 mb-2"
+                    onClick={() => setSelectedSize(size)}
+                  >
+                    {size}
+                  </Button>
+                ))}
               </div>
               <p className="mt-3"><a href="#">Size Guide</a></p>
-              <Button variant="primary"><i className="fas fa-shopping-bag"></i> Add to Cart</Button>
+              <Button variant="primary" onClick={handleAddToCart}><i className="fas fa-shopping-bag"></i> Add to Cart</Button>
               <p>Members receive free delivery to pick up points for purchases over €30.</p>
               <h4 className="mt-4 mb-3">Description and Fit</h4>
               <Collapse in={true}>
@@ -175,9 +203,43 @@ const MenPage = () => {
           <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
         </Modal.Footer>
       </Modal>
-      
+
+      {/* Modal for cart details */}
+      <Modal show={showCartModal} onHide={handleCloseCartModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>My Cart, {cart ? '1 item' : '0 items'}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {cart && (
+            <div>
+              <Row>
+                <Col md={4}>
+                  <img src={cart.image} alt={cart.name} style={{ width: '100%' }} />
+                </Col>
+                <Col md={8}>
+                  <p><strong>Price:</strong> €{cart.price}</p>
+                  <p><strong>Name:</strong> {cart.name}</p>
+                  <p><strong>Colour:</strong> {cart.color}</p>
+                  <p><strong>Size:</strong> {cart.size}</p>
+                  <p><strong>Qty:</strong> 1</p>
+                  <p><strong>Sub-total:</strong> €{cart.subTotal}</p>
+                </Col>
+              </Row>
+            </div>
+          )}
+          <Button variant="outline-dark" className="mr-2" onClick={handleCloseCartModal}>View Cart</Button>
+          <Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
+          <p className="mt-3">Free Delivery Worldwide*</p>
+          <p>More info here...</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseCartModal}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
 
 export default MenPage;
+
+

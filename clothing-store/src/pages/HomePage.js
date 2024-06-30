@@ -20,10 +20,14 @@ const HomePage = () => {
           <Row className="categories">
             <Col className="category">
               <Card>
-                <Card.Img variant="top" src="/images/menCate.jpg" alt="Men" className="category-image" />
+                <Link to="/men"> {/* Ensure clicking on the Men image directs to the MenPage */}
+                  <Card.Img variant="top" src="/images/menCate.jpg" alt="Men" className="category-image" />
+                </Link>
                 <Card.Body>
                   <Card.Title>Men</Card.Title>
-                  <Button variant="primary">View All</Button>
+                  <Link to="/men"> {/* Ensure this links to the MenPage */}
+                    <Button variant="primary">View All</Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>
@@ -45,7 +49,9 @@ const HomePage = () => {
                 <Card.Img variant="top" src="/images/saleCate.jpg" alt="Sale" className="category-image" />
                 <Card.Body>
                   <Card.Title>Sale</Card.Title>
-                  <Button variant="primary">View All</Button>
+                  <Link to="/sale"> {/* Ensure this links to the SalePage or appropriate route */}
+                    <Button variant="primary">View All</Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>
@@ -62,7 +68,9 @@ const HomePage = () => {
                 <Card.Img variant="top" src="/images/product1.jpg" alt="Trending" className="product-image" />
                 <Card.Body>
                   <Card.Title>Trending</Card.Title>
-                  <Button variant="primary">View All</Button>
+                  <Link to="/trending"> {/* Ensure this links to the TrendingPage or appropriate route */}
+                    <Button variant="primary">View All</Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>
@@ -71,7 +79,9 @@ const HomePage = () => {
                 <Card.Img variant="top" src="/images/product2.jpg" alt="Best Sellers" className="product-image" />
                 <Card.Body>
                   <Card.Title>Best Sellers</Card.Title>
-                  <Button variant="primary">View All</Button>
+                  <Link to="/best-sellers"> {/* Ensure this links to the BestSellersPage or appropriate route */}
+                    <Button variant="primary">View All</Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>
@@ -80,7 +90,9 @@ const HomePage = () => {
                 <Card.Img variant="top" src="/images/product3.jpg" alt="New Arrivals" className="product-image" />
                 <Card.Body>
                   <Card.Title>New Arrivals</Card.Title>
-                  <Button variant="primary">View All</Button>
+                  <Link to="/new-arrivals"> {/* Ensure this links to the NewArrivalsPage or appropriate route */}
+                    <Button variant="primary">View All</Button>
+                  </Link>
                 </Card.Body>
               </Card>
             </Col>

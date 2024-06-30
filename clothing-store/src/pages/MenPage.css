@@ -53,7 +53,7 @@ body {
 }
 
 .men-page .filter-dropdown .dropdown-toggle:hover {
-  color: #007bff; /* Blue color on hover */
+  color: #aaa; /* Light gray color on hover */
   text-decoration: none; /* Remove underline */
 }
 
@@ -99,4 +99,29 @@ body {
 
 .men-page .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.men-page .size-options .btn-dark {
+  background-color: gray;
+  border-color: gray;
+}
+
+.men-page .cart-buttons .btn-primary {
+  background-color: blue;
+  border-color: blue;
+}
+
+.men-page .cart-buttons .btn-outline-dark {
+  background-color: gray;
+  border-color: gray;
+  color: white;
+}
+
+.men-page .cart-buttons .btn {
+  margin-right: 10px;
+  text-transform: none; /* Normal text */
+}
+
+.men-page .cart-buttons .btn:last-child {
+  margin-right: 0;
 }
