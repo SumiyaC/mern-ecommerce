@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Breadcrumb, Modal, Collapse, Dropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import './MenPage.css';
 
-const MenPage = () => {
+const MenPage = ({ cartItems = [], setCartItems }) => {
   const [showModal, setShowModal] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [cart, setCart] = useState(null);
   const [sortOrder, setSortOrder] = useState('');
 
   const initialProducts = [
@@ -44,15 +44,15 @@ const MenPage = () => {
 
   const handleAddToCart = () => {
     if (selectedProduct && selectedSize) {
-      setCart({
+      const newItem = {
+        id: selectedProduct.id,
         name: selectedProduct.name,
         price: selectedProduct.price,
-        color: 'Default Color',  // Assuming a default color or you can add color to the product object
+        image: selectedProduct.image,
         size: selectedSize,
         quantity: 1,
-        subTotal: selectedProduct.price,
-        image: selectedProduct.image,  // Added product image to cart
-      });
+      };
+      setCartItems(prevItems => [...prevItems, newItem]);
       setShowCartModal(true);
       setShowModal(false);
     } else {
@@ -67,7 +67,7 @@ const MenPage = () => {
   return (
     <Container className="men-page">
       <Breadcrumb className="custom-breadcrumb">
-        <Breadcrumb.Item className="breadcrumb-home">Home</Breadcrumb.Item>
+        <Breadcrumb.Item className="breadcrumb-home"><Link to="/">Home</Link></Breadcrumb.Item>
         <Breadcrumb.Item active>Men</Breadcrumb.Item>
       </Breadcrumb>
       
@@ -170,7 +170,7 @@ const MenPage = () => {
                 ))}
               </div>
               <p className="mt-3"><a href="#">Size Guide</a></p>
-              <Button variant="primary" onClick={handleAddToCart}><i className="fas fa-shopping-bag"></i> Add to Cart</Button>
+              <Button variant="primary" onClick={handleAddToCart}><i className="fas fa-shopping-cart"></i> Add to Cart</Button>
               <p>Members receive free delivery to pick up points for purchases over €30.</p>
               <h4 className="mt-4 mb-3">Description and Fit</h4>
               <Collapse in={true}>
@@ -207,28 +207,30 @@ const MenPage = () => {
       {/* Modal for cart details */}
       <Modal show={showCartModal} onHide={handleCloseCartModal} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>My Cart, {cart ? '1 item' : '0 items'}</Modal.Title>
+          <Modal.Title>My Cart, {cartItems.length} item(s)</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {cart && (
-            <div>
+          {cartItems.map(item => (
+            <div key={item.id}>
               <Row>
                 <Col md={4}>
-                  <img src={cart.image} alt={cart.name} style={{ width: '100%' }} />
+                  <img src={item.image} alt={item.name} style={{ width: '100%' }} />
                 </Col>
                 <Col md={8}>
-                  <p><strong>Price:</strong> €{cart.price}</p>
-                  <p><strong>Name:</strong> {cart.name}</p>
-                  <p><strong>Colour:</strong> {cart.color}</p>
-                  <p><strong>Size:</strong> {cart.size}</p>
-                  <p><strong>Qty:</strong> 1</p>
-                  <p><strong>Sub-total:</strong> €{cart.subTotal}</p>
+                  <p><strong>Name:</strong> {item.name}</p>
+                  <p><strong>Price:</strong> €{item.price}</p>
+                  <p><strong>Size:</strong> {item.size}</p>
+                  <p><strong>Quantity:</strong> {item.quantity}</p>
+                  <p><strong>Sub-total:</strong> €{item.price * item.quantity}</p>
                 </Col>
               </Row>
+              <hr />
             </div>
-          )}
-          <Button variant="outline-dark" className="mr-2" onClick={handleCloseCartModal}>View Cart</Button>
-          <Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
+          ))}
+          <div className="cart-buttons mt-4">
+            <Link to="/viewcart" className="btn btn-outline-dark mr-2">View Cart</Link>
+            <Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
+          </div>
           <p className="mt-3">Free Delivery Worldwide*</p>
           <p>More info here...</p>
         </Modal.Body>
@@ -241,5 +243,3 @@ const MenPage = () => {
 };
 
 export default MenPage;
-
-
