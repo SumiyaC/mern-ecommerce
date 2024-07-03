@@ -1,0 +1,21 @@
+/* ViewCartPage.css */
+.cart-item {
+    margin-bottom: 20px;
+  }
+  
+  .cart-item-image {
+    width: 100%;
+  }
+  
+  .remove-button {
+    color: #fff;
+    background-color: #fff; /* Ensure the button has a white color */
+    border-color: #000;
+  }
+  
+  .remove-button:hover {
+    color: #000;
+    background-color: #fff;
+    border-color: #000;
+  }
+  

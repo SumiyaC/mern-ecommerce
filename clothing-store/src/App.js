@@ -9,6 +9,9 @@ import './App.css';
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
+  const handleRemoveFromCart = (id) => {
+    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+  };
 
   return (
     <Router>
@@ -18,7 +21,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/women" element={<WomenPage cartItems={cartItems} setCartItems={setCartItems} />} />
           <Route path="/men" element={<MenPage cartItems={cartItems} setCartItems={setCartItems} />} />
-          <Route path="/viewcart" element={<ViewCartPage cartItems={cartItems} setCartItems={setCartItems} />} /> {/* Add route for ViewCartPage */}
+          <Route path="/viewcart" element={<ViewCartPage cartItems={cartItems} handleRemoveFromCart={handleRemoveFromCart} />} /> {/* Add route for ViewCartPage */}
         </Routes>
       </div>
     </Router>
