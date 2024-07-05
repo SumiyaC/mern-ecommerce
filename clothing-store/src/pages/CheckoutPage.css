@@ -1,0 +1,38 @@
+/* Example styles for CheckoutPage */
+
+.container {
+    margin-top: 20px;
+  }
+  
+  .payment-details {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .item-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .item img {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  .item p {
+    margin: 0;
+  }
+  
+  .total {
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
