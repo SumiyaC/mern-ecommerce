@@ -1,14 +1,101 @@
-/* CheckoutForm.css */
-
-.card-error {
+/* .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+  }
+  
+  .card-element {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  .checkout-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .checkout-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .card-error {
     color: red;
-    margin-top: 1em;
   }
   
   .payment-success {
     color: green;
-    margin-top: 1em;
-    font-weight: bold;
-    font-size: 1.2em;
+  }
+   */
+
+   .form-group {
+    margin-bottom: 1rem; /* Example margin for form groups */
   }
   
+  .form-control {
+    width: 100%; /* Example width for form controls */
+    padding: 0.375rem 0.75rem; /* Example padding for form controls */
+    font-size: 1rem; /* Example font size for form controls */
+    line-height: 1.5; /* Example line height for form controls */
+    color: #495057; /* Example text color for form controls */
+    background-color: #fff; /* Example background color for form controls */
+    background-clip: padding-box;
+    border: 1px solid #ced4da; /* Example border for form controls */
+    border-radius: 0.25rem; /* Example border radius for form controls */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Example transition for form controls */
+  }
+  
+  .card-element {
+    /* Example styles for CardElement */
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .pay-button {
+    /* Example styles for Pay button */
+    background-color: #007bff; /* Blue background color */
+    border-radius: 5px;
+    color: white; /* White text */
+    padding: 12px 20px; /* Padding */
+    font-size: 16px; /* Font size */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 4px; /* Rounded corners */
+    margin-top: 10px; /* Top margin */
+  }
+  
+  .pay-button:hover {
+    background-color: #0056b3; /* Darker green on hover */
+  }
+  
+  .pay-button:disabled {
+    background-color: #cccccc; /* Greyed out when disabled */
+    cursor: not-allowed; /* Disabled cursor */
+  }
+  
+  .card-error {
+    /* Example styles for card error message */
+    color: red;
+    margin-top: 10px;
+  }
+  
+  .payment-success {
+    /* Example styles for payment success message */
+    color: green;
+    margin-top: 10px;
+  }
+    

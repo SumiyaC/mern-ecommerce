@@ -12,16 +12,15 @@ const CheckoutPage = ({ cartItems }) => {
   const total = subTotal + deliveryCharge;
 
   return (
-    <Container>
+    <Container className="checkout-container">
       <Row>
-        <Col md={8}>
-          <h1>Checkout</h1>
-          {/* Display cart items */}
+        <Col md={8} className="checkout-section">
+          <h2 className="checkout-heading">Checkout</h2>
           <Elements stripe={stripePromise}>
             <CheckoutForm amount={total} />
           </Elements>
         </Col>
-        <Col md={4}>
+        <Col md={4} className="payment-details-section">
           <div className="payment-details">
             <h3>Payment Details</h3>
             <p>Sub-total: €{subTotal.toFixed(2)}</p>
