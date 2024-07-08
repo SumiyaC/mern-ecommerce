@@ -1,27 +1,32 @@
 const express = require('express');
 const cors = require('cors');
 const stripe = require('stripe')('sk_test_51PZ9euAtrmBnkwD0Zd78dVBBzGSEus8oVmsiUrKGSsPAGIw2ruFN0xNbEWhPh1dnr6wNagMN9XfTGuNgtg1cnjQZ0031TwgF9U'); // Replace with your actual secret key
-
+const bodyParser = require('body-parser');
 const app = express();
-
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
 app.post('/create-payment-intent', async (req, res) => {
-  const { amount } = req.body;
+  let { amount, currency } = req.body;
+
+  // Convert amount to cents if currency is EUR
+  if (currency && currency.toLowerCase() === 'eur') {
+    amount = Math.round(parseFloat(amount) * 100); // Convert amount to cents
+  } else {
+    // Handle other currencies if needed
+  }
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
-      currency: 'eur',
+      currency: currency || 'eur', // Set default currency to EUR if not provided
     });
-
-    res.send({
-      clientSecret: paymentIntent.client_secret,
-    });
+    res.send({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
+    console.error('Error creating payment intent:', error);
     res.status(500).send({ error: error.message });
   }
 });
 
-app.listen(3001, () => console.log('Server is running on port 3001'));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

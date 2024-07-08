@@ -50,7 +50,7 @@ import { useNavigate } from 'react-router-dom';
 import './CartSummary.css';
 
 const CartSummary = ({ cartItems, subTotal }) => {
-  const deliveryCharge = 8.50;
+  const deliveryCharge = 8.00;
   const total = subTotal + deliveryCharge;
   const navigate = useNavigate();
 
@@ -70,7 +70,7 @@ const CartSummary = ({ cartItems, subTotal }) => {
             <Form.Group controlId="deliveryOptions">
               <Form.Label>Delivery options</Form.Label>
               <Form.Control as="select">
-                <option>Standard Pick Up Point (€8.50)</option>
+                <option>Standard Pick Up Point (€8.00)</option>
                 <option>Express Home Delivery (€15.00)</option>
               </Form.Control>
             </Form.Group>

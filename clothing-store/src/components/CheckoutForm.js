@@ -1,60 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import { Button, Form } from 'react-bootstrap';
+import './CheckoutForm.css';
 
 const CheckoutForm = ({ amount }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const [cardholderName, setCardholderName] = useState('');
+  const [error, setError] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const [succeeded, setSucceeded] = useState(false);
+  const [message, setMessage] = useState('');
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!stripe || !elements) {
-      return;
-    }
+    setProcessing(true);
 
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: elements.getElement(CardElement),
-    });
+    try {
+      const { data } = await axios.post('http://localhost:5000/create-payment-intent', {
+        amount: parseFloat(amount).toFixed(2), // Ensure amount is sent as a number
+        currency: 'eur', // Hardcoded EUR, adjust if necessary
+      });
+      const clientSecret = data.clientSecret;
 
-    if (error) {
-      console.log(error);
-      return;
-    }
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+          billing_details: {
+            name: cardholderName,
+          },
+        },
+      });
 
-    const { data: { clientSecret } } = await axios.post('http://localhost:3001/create-payment-intent', {
-      amount: amount * 100,
-    });
-
-    const { error: confirmError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: paymentMethod.id,
-    });
-
-    if (confirmError) {
-      console.log(confirmError);
-      return;
-    }
-
-    if (paymentIntent.status === 'succeeded') {
-      console.log('Payment succeeded!');
-      // Handle successful payment (e.g., redirect, show success message)
+      if (result.error) {
+        setError(`Payment failed: ${result.error.message}`);
+      } else {
+        setSucceeded(true);
+        setMessage('Payment succeeded! Order receipt sent to your email. Your shipment will arrive within 5 business days.');
+        setError(null);
+      }
+    } catch (err) {
+      setError(`Network error: ${err.message}`);
+    } finally {
+      setProcessing(false);
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="cardDetails">
-        <Form.Label>Card details</Form.Label>
-        <CardElement options={{ style: { base: { fontSize: '16px' } } }} />
-      </Form.Group>
-      <Form.Group controlId="cardholderName">
-        <Form.Label>Cardholder name</Form.Label>
-        <Form.Control type="text" placeholder="Enter cardholder name" />
-      </Form.Group>
-      <Button variant="primary" type="submit" disabled={!stripe}>
-        Pay
-      </Button>
-    </Form>
+    <form onSubmit={handleSubmit}>
+      <label>
+        Cardholder's Name
+        <input
+          type="text"
+          value={cardholderName}
+          onChange={(e) => setCardholderName(e.target.value)}
+          required
+        />
+      </label>
+      <CardElement />
+      <button disabled={processing || succeeded}>
+        {processing ? 'Processing…' : 'Pay'}
+      </button>
+      {error && <div className="card-error" role="alert">{error}</div>}
+      {succeeded && <div className="payment-success" role="alert">{message}</div>}
+    </form>
   );
 };
 

@@ -1,3 +1,4 @@
+// src/pages/WomenPage.js
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Button, Breadcrumb, Modal, Collapse, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';

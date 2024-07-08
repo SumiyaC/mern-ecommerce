@@ -1,0 +1,14 @@
+/* CheckoutForm.css */
+
+.card-error {
+    color: red;
+    margin-top: 1em;
+  }
+  
+  .payment-success {
+    color: green;
+    margin-top: 1em;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
