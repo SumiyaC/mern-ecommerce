@@ -1,4 +1,0 @@
-POST http://localhost:5000/create-payment-intent
-{
-  "amount": 1000
-}

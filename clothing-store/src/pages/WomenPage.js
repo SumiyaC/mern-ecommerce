@@ -12,9 +12,9 @@ const WomenPage = ({ cartItems, setCartItems }) => {
   const [sortOrder, setSortOrder] = useState('');
 
   const initialProducts = [
-    { id: 1, name: 'Product 1', price: 50, image: '/images/women1.jpg', description: 'Description of Product 1', material: 'Material of Product 1', care: 'Care advice for Product 1', delivery: 'Delivery and payment info for Product 1' },
-    { id: 2, name: 'Product 2', price: 65, image: '/images/women2.jpg', description: 'Description of Product 2', material: 'Material of Product 2', care: 'Care advice for Product 2', delivery: 'Delivery and payment info for Product 2' },
-    { id: 3, name: 'Product 3', price: 45, image: '/images/women3.jpg', description: 'Description of Product 3', material: 'Material of Product 3', care: 'Care advice for Product 3', delivery: 'Delivery and payment info for Product 3' },
+    { id: 1, name: 'Product 1', price: 50, image: '/images/women1.jpg', description: 'An elegant, comfortable formal white co-ord set features a chic blazer and a matching pant.', material: 'Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.', care: 'Machine wash cold with similar colors. Tumble dry low. Cool iron if needed. Do not bleach.', delivery: 'Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal.' },
+    { id: 2, name: 'Product 2', price: 65, image: '/images/women2.jpg', description: 'A touch of elegance to any outfit with this beautifully designed lightweight scarf .', material: 'Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.', care: 'Machine wash cold with similar colors. Tumble dry low. Cool iron if needed. Do not bleach.', delivery: 'Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal.' },
+    { id: 3, name: 'Product 3', price: 45, image: '/images/women3.jpg', description: 'A trendy oversized green check blazer with relaxed fit and bold pattern ', material: 'Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.', care: 'Machine wash cold with similar colors. Tumble dry low. Cool iron if needed. Do not bleach.', delivery: 'Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal.' },
   ];
 
   const [products, setProducts] = useState(initialProducts);
