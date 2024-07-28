@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
@@ -18,7 +20,7 @@ const CheckoutForm = ({ amount }) => {
 
     try {
       const { data } = await axios.post('http://localhost:5000/create-payment-intent', {
-        amount: parseFloat(amount), // Ensure amount is sent as a number
+        amount: Math.round(parseFloat(amount) * 100), // Convert amount to cents
         currency: 'eur', // Hardcoded EUR, adjust if necessary
       });
       const clientSecret = data.clientSecret;

@@ -1,7 +1,7 @@
-// src/pages/WomenPage.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Breadcrumb, Modal, Collapse, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './WomenPage.css';
 
 const WomenPage = ({ cartItems, setCartItems }) => {
@@ -10,14 +10,22 @@ const WomenPage = ({ cartItems, setCartItems }) => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [sortOrder, setSortOrder] = useState('');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const initialProducts = [
-    { id: 1, name: 'Product 1', price: 50, image: '/images/women1.jpg', description: 'An elegant, comfortable formal white co-ord set features a chic blazer and a matching pant.', material: 'Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.', care: 'Machine wash cold with similar colors. Tumble dry low. Cool iron if needed. Do not bleach.', delivery: 'Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal.' },
-    { id: 2, name: 'Product 2', price: 65, image: '/images/women2.jpg', description: 'A touch of elegance to any outfit with this beautifully designed lightweight scarf .', material: 'Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.', care: 'Machine wash cold with similar colors. Tumble dry low. Cool iron if needed. Do not bleach.', delivery: 'Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal.' },
-    { id: 3, name: 'Product 3', price: 45, image: '/images/women3.jpg', description: 'A trendy oversized green check blazer with relaxed fit and bold pattern ', material: 'Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.', care: 'Machine wash cold with similar colors. Tumble dry low. Cool iron if needed. Do not bleach.', delivery: 'Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal.' },
-  ];
-
-  const [products, setProducts] = useState(initialProducts);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/products'); // Update the URL to point to your backend server
+        setProducts(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('There was an error fetching the products!', error);
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const handleSort = (e) => {
     const sortBy = e.target.getAttribute('data-sort');
@@ -29,7 +37,7 @@ const WomenPage = ({ cartItems, setCartItems }) => {
     } else if (sortBy === 'price-desc') {
       sortedProducts = [...products].sort((a, b) => b.price - a.price);
     } else {
-      sortedProducts = initialProducts;
+      sortedProducts = products;
     }
     setProducts(sortedProducts);
   };
@@ -46,7 +54,7 @@ const WomenPage = ({ cartItems, setCartItems }) => {
   const handleAddToCart = () => {
     if (selectedProduct && selectedSize) {
       const newItem = {
-        id: selectedProduct.id,
+        id: selectedProduct._id,
         name: selectedProduct.name,
         price: selectedProduct.price,
         image: selectedProduct.image,
@@ -131,18 +139,22 @@ const WomenPage = ({ cartItems, setCartItems }) => {
       </div>
 
       <Row className="products">
-        {products.map((product) => (
-          <Col key={product.id} className="product">
-            <Card>
-              <Card.Img variant="top" src={product.image} alt={product.name} />
-              <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Text>${product.price}</Card.Text>
-                <Button variant="primary" onClick={() => handleViewDetails(product)}>View Details</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+        {loading ? (
+          <p>Loading products...</p>
+        ) : (
+          products.map((product) => (
+            <Col key={product._id} className="product">
+              <Card>
+                <Card.Img variant="top" src={product.image} alt={product.name} />
+                <Card.Body>
+                  <Card.Title>{product.name}</Card.Title>
+                  <Card.Text>${product.price}</Card.Text>
+                  <Button variant="primary" onClick={() => handleViewDetails(product)}>View Details</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        )}
       </Row>
 
       {/* Modal for detailed view */}
