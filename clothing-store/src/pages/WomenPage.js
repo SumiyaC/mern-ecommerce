@@ -16,7 +16,7 @@ const WomenPage = ({ cartItems, setCartItems }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products'); // Update the URL to point to your backend server
+        const response = await axios.get('http://localhost:5000/api/products?category=women'); // Update the URL to point to your backend server
         setProducts(response.data);
         setLoading(false);
       } catch (error) {

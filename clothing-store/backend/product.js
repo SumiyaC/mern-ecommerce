@@ -9,6 +9,7 @@ const productSchema = new mongoose.Schema({
   material: { type: String, required: true },
   care: { type: String, required: true },
   delivery: { type: String, required: true },
+  category: {type: String, required: true}
 });
 
 const Product = mongoose.model('Product', productSchema);

@@ -1,23 +1,68 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Breadcrumb, Modal, Collapse, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './MenPage.css';
 
-const MenPage = ({ cartItems = [], setCartItems }) => {
+const MenPage = ({ cartItems, setCartItems }) => {
   const [showModal, setShowModal] = useState(false);
   const [showCartModal, setShowCartModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState('');
+  const [filters, setFilters] = useState({
+    brand: '',
+    color: '',
+    size: '',
+    material: '',
+    rating: '',
+    availability: '',
+  });
 
-  const initialProducts = [
-    { id: 1, name: 'Product 1', price: 50, image: '/images/men1.jpg', description: 'Description of Product 1', material: 'Material of Product 1', care: 'Care advice for Product 1', delivery: 'Delivery and payment info for Product 1' },
-    { id: 2, name: 'Product 2', price: 65, image: '/images/product2.jpg', description: 'Description of Product 2', material: 'Material of Product 2', care: 'Care advice for Product 2', delivery: 'Delivery and payment info for Product 2' },
-    { id: 3, name: 'Product 3', price: 45, image: '/images/menCate.jpg', description: 'Description of Product 3', material: 'Material of Product 3', care: 'Care advice for Product 3', delivery: 'Delivery and payment info for Product 3' },
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/products?category=men'); // Update URL to point to your backend server
+        setProducts(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('There was an error fetching the products!', error);
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
-  const [products, setProducts] = useState(initialProducts);
+  // useEffect(() => {
+  //   // Sorting products based on the selected sort order
+  //   const sortProducts = (products, sortOrder) => {
+  //     if (sortOrder === 'price-asc') {
+  //       return products.sort((a, b) => a.price - b.price);
+  //     } else if (sortOrder === 'price-desc') {
+  //       return products.sort((a, b) => b.price - a.price);
+  //     }
+  //     return products;
+  //   };
 
+  //   const filteredAndSortedProducts = sortProducts(products, sortOrder);
+  //   // Apply filters if needed
+
+  //   setProducts(filteredAndSortedProducts);
+  // }, [sortOrder, filters, products]);
+
+  // const handleSort = (e) => {
+  //   setSortOrder(e.target.getAttribute('data-sort'));
+  // };
+
+  // const handleFilter = (filterName) => (e) => {
+  //   setFilters({
+  //     ...filters,
+  //     [filterName]: e.target.getAttribute('data-sort'),
+  //   });
+  // };
   const handleSort = (e) => {
     const sortBy = e.target.getAttribute('data-sort');
     setSortOrder(sortBy);
@@ -28,7 +73,7 @@ const MenPage = ({ cartItems = [], setCartItems }) => {
     } else if (sortBy === 'price-desc') {
       sortedProducts = [...products].sort((a, b) => b.price - a.price);
     } else {
-      sortedProducts = initialProducts;
+      sortedProducts = products;
     }
     setProducts(sortedProducts);
   };
@@ -45,7 +90,7 @@ const MenPage = ({ cartItems = [], setCartItems }) => {
   const handleAddToCart = () => {
     if (selectedProduct && selectedSize) {
       const newItem = {
-        id: selectedProduct.id,
+        id: selectedProduct._id,
         name: selectedProduct.name,
         price: selectedProduct.price,
         image: selectedProduct.image,
@@ -67,7 +112,7 @@ const MenPage = ({ cartItems = [], setCartItems }) => {
   return (
     <Container className="men-page">
       <Breadcrumb className="custom-breadcrumb">
-        <Breadcrumb.Item className="breadcrumb-home"><Link to="/">Home</Link></Breadcrumb.Item>
+        <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
         <Breadcrumb.Item active>Men</Breadcrumb.Item>
       </Breadcrumb>
       
@@ -129,19 +174,42 @@ const MenPage = ({ cartItems = [], setCartItems }) => {
         </Dropdown>
       </div>
 
-      <Row className="products">
-        {products.map((product) => (
-          <Col key={product.id} className="product">
-            <Card>
-              <Card.Img variant="top" src={product.image} alt={product.name} />
-              <Card.Body>
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Text>${product.price}</Card.Text>
-                <Button variant="primary" onClick={() => handleViewDetails(product)}>View Details</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
+      {/* <Row className="products">
+        {loading ? (
+          <p>Loading products...</p>
+        ) : (
+          products.map((product) => (
+            <Col key={product._id} md={4} className="mb-4">
+              <Card className="product-card">
+                <Card.Img variant="top" src={product.image} alt={product.name} style={{ height: '300px', objectFit: 'cover' }} />
+                <Card.Body>
+                  <Card.Title>{product.name}</Card.Title>
+                  <Card.Text>${product.price}</Card.Text>
+                  <Button variant="primary" onClick={() => handleViewDetails(product)}>View Details</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        )}
+      </Row> */}
+
+<Row className="products">
+        {loading ? (
+          <p>Loading products...</p>
+        ) : (
+          products.map((product) => (
+            <Col key={product._id} className="product">
+              <Card>
+                <Card.Img variant="top" src={product.image} alt={product.name} />
+                <Card.Body>
+                  <Card.Title>{product.name}</Card.Title>
+                  <Card.Text>${product.price}</Card.Text>
+                  <Button variant="primary" onClick={() => handleViewDetails(product)}>View Details</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))
+        )}
       </Row>
 
       {/* Modal for detailed view */}
@@ -155,8 +223,8 @@ const MenPage = ({ cartItems = [], setCartItems }) => {
               <img src={selectedProduct && selectedProduct.image} alt={selectedProduct && selectedProduct.name} style={{ width: '100%' }} />
             </Col>
             <Col md={8}>
-              <p>Price: ${selectedProduct && selectedProduct.price}</p>
-              <p>Choose Size:</p>
+              <p><strong>Price:</strong> ${selectedProduct && selectedProduct.price}</p>
+              <p><strong>Choose Size:</strong></p>
               <div className="size-options">
                 {['XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => (
                   <Button
@@ -218,10 +286,10 @@ const MenPage = ({ cartItems = [], setCartItems }) => {
                 </Col>
                 <Col md={8}>
                   <p><strong>Name:</strong> {item.name}</p>
-                  <p><strong>Price:</strong> €{item.price}</p>
+                  <p><strong>Price:</strong> ${item.price}</p>
                   <p><strong>Size:</strong> {item.size}</p>
                   <p><strong>Quantity:</strong> {item.quantity}</p>
-                  <p><strong>Sub-total:</strong> €{item.price * item.quantity}</p>
+                  <p><strong>Sub-total:</strong> ${item.price * item.quantity}</p>
                 </Col>
               </Row>
               <hr />
