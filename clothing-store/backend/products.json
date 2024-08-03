@@ -2,7 +2,7 @@
     {
       "id": 1,
       "name": "Women's Product 1",
-      "price": 50.99,
+      "price": 70.99,
       "image": "/images/women1.jpg",
       "description": "An elegant, comfortable formal white co-ord set features a chic blazer and a matching pant.",
       "material": "Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.",
@@ -13,7 +13,7 @@
     {
       "id": 2,
       "name": "Women's Product 2",
-      "price": 65.99,
+      "price": 29.99,
       "image": "/images/women2.jpg",
       "description": "A touch of elegance to any outfit with this beautifully designed lightweight scarf.",
       "material": "Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.",
@@ -24,7 +24,7 @@
     {
       "id": 3,
       "name": "Women's Product 3",
-      "price": 45.99,
+      "price": 65.99,
       "image": "/images/women3.jpg",
       "description": "A trendy oversized green check blazer with relaxed fit and bold pattern.",
       "material": "Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort.",
@@ -41,29 +41,29 @@
       "description": "Brown stylish blazer,perfect for your autumn wardrobe.",
       "material": "Leather and woolen material inside",
       "care": "Dry clean only.",
-      "delivery": "Free delivery on orders over $30.",
+      "delivery": "Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal..",
       "category":"men"
     },
     {
       "id": 5,
       "name": "Men's Product 2",
-      "price": 39.99,
+      "price": 69.99,
       "image": "/images/product2.jpg",
       "description": "Vibrant men's blazer co-ord set for a sophisticated look.",
       "material": "Crafted from high-quality, breathable cotton blend fabric, ensuring durability and comfort",
       "care": "Dry clean only.",
-      "delivery": "Free delivery on orders over $30.",
+      "delivery": "Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal..",
       "category":"men"
     },
     {
       "id": 6,
       "name": "Men's Product 3",
-      "price": 49.99,
+      "price": 29.99,
       "image": "/images/menCate.jpg",
       "description": "a vibrant yellow scarf, brings colours to your fit.",
       "material": "Wool",
       "care": "Machine wash warm, tumble dry medium.",
-      "delivery": "Free delivery on orders over $30.",
+      "delivery": "Fast and secure delivery within 3-5 business days. Multiple payment options available, including credit card and PayPal..",
       "category":"men"
     }
   ]

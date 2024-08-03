@@ -42,7 +42,7 @@ const CartSummary = ({ cartItems, subTotal }) => {
           <FontAwesomeIcon icon={faCcDiscover} size="2x" className="mr-2" />
           <FontAwesomeIcon icon={faCcPaypal} size="2x" className="mr-2" />
         </div>
-        <p className="mt-3">Got a discount code? Add it in the next step</p>
+        <p className="mt-3">Ready to finalize your purchase? Proceed to checkout to complete your order</p>
       </Card.Body>
     </Card>
   );

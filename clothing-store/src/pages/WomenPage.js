@@ -184,7 +184,7 @@ const WomenPage = ({ cartItems, setCartItems }) => {
               </div>
               <p className="mt-3"><a href="#">Size Guide</a></p>
               <Button variant="primary" onClick={handleAddToCart}><i className="fas fa-shopping-cart"></i> Add to Cart</Button>
-              <p>Members receive free delivery to pick up points for purchases over €30.</p>
+              <p>Members receive free delivery to pick up points for purchases over €80.</p>
               <h4 className="mt-4 mb-3">Description and Fit</h4>
               <Collapse in={true}>
                 <div>
@@ -242,10 +242,11 @@ const WomenPage = ({ cartItems, setCartItems }) => {
           ))}
           <div className="cart-buttons mt-4">
             <Link to="/viewcart" className="btn btn-outline-dark mr-2">View Cart</Link>
-            <Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
+            </div>
+            {/*<Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
           </div>
           <p className="mt-3">Free Delivery Worldwide*</p>
-          <p>More info here...</p>
+          <p>More info here...</p>*/}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseCartModal}>Close</Button>

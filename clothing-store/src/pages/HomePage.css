@@ -37,14 +37,13 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 40px 60px; /* Increase the padding to make the background larger */
   text-align: center;
-  /* border-radius: 5px;  */
 }
 
 .categories-section, .featured-products-section, .newsletter-section {
   margin-top: 40px;
 }
 
-.categories-section h2, .featured-products-section h2, .newsletter-section h2 {
+.categories-section h2, .featured-products-section h2 {
   margin-bottom: 20px;
   font-size: 30px; /* Increase font size for headers */
   font-weight: 700; /* Make headers bold */
@@ -68,7 +67,6 @@ body {
   width: 100%;
   height: 200px; /* Adjust height as needed */
   object-fit: cover; /* Ensures the image covers the area without distortion */
-  /* border-radius: 5px; */
 }
 
 .category-name, .product-name {
@@ -97,13 +95,33 @@ body {
   background-color: #0056b3; /* Darker blue on hover */
 }
 
+/* Newsletter Section Specific Styles */
+
+.newsletter-section {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.newsletter-section h2.newsletter-heading {
+  margin-bottom: 0;
+  font-size: 18px; /* Set the desired font size */
+  /* font-weight: bold; */
+  color: #333; /* Darker color for better visibility */
+  text-transform: none; /* Prevent uppercase transformation */
+}
+
+.newsletter-section .ms-3 {
+  margin-left: 1rem !important;
+}
+
 .newsletter-section form {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10px; /* Add some space between the text and the form */
 }
 
-.newsletter-section input {
+.newsletter-section form input {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -111,16 +129,16 @@ body {
   width: 300px;
 }
 
-.newsletter-section button {
-  padding: 10px;
+.newsletter-section form button {
+  padding: 10px 20px; /* Increased padding for a consistent button size */
   font-size: 16px;
   border: none;
   background-color: #007bff; /* Blue background color */
   color: white; /* White text color */
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 5px 5px 0; /* Adjust border-radius for the button */
   cursor: pointer;
 }
 
-.newsletter-section button:hover {
+.newsletter-section form button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }

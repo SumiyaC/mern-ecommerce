@@ -36,33 +36,7 @@ const MenPage = ({ cartItems, setCartItems }) => {
     fetchProducts();
   }, []);
 
-  // useEffect(() => {
-  //   // Sorting products based on the selected sort order
-  //   const sortProducts = (products, sortOrder) => {
-  //     if (sortOrder === 'price-asc') {
-  //       return products.sort((a, b) => a.price - b.price);
-  //     } else if (sortOrder === 'price-desc') {
-  //       return products.sort((a, b) => b.price - a.price);
-  //     }
-  //     return products;
-  //   };
 
-  //   const filteredAndSortedProducts = sortProducts(products, sortOrder);
-  //   // Apply filters if needed
-
-  //   setProducts(filteredAndSortedProducts);
-  // }, [sortOrder, filters, products]);
-
-  // const handleSort = (e) => {
-  //   setSortOrder(e.target.getAttribute('data-sort'));
-  // };
-
-  // const handleFilter = (filterName) => (e) => {
-  //   setFilters({
-  //     ...filters,
-  //     [filterName]: e.target.getAttribute('data-sort'),
-  //   });
-  // };
   const handleSort = (e) => {
     const sortBy = e.target.getAttribute('data-sort');
     setSortOrder(sortBy);
@@ -174,24 +148,6 @@ const MenPage = ({ cartItems, setCartItems }) => {
         </Dropdown>
       </div>
 
-      {/* <Row className="products">
-        {loading ? (
-          <p>Loading products...</p>
-        ) : (
-          products.map((product) => (
-            <Col key={product._id} md={4} className="mb-4">
-              <Card className="product-card">
-                <Card.Img variant="top" src={product.image} alt={product.name} style={{ height: '300px', objectFit: 'cover' }} />
-                <Card.Body>
-                  <Card.Title>{product.name}</Card.Title>
-                  <Card.Text>${product.price}</Card.Text>
-                  <Button variant="primary" onClick={() => handleViewDetails(product)}>View Details</Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))
-        )}
-      </Row> */}
 
 <Row className="products">
         {loading ? (
@@ -239,7 +195,7 @@ const MenPage = ({ cartItems, setCartItems }) => {
               </div>
               <p className="mt-3"><a href="#">Size Guide</a></p>
               <Button variant="primary" onClick={handleAddToCart}><i className="fas fa-shopping-cart"></i> Add to Cart</Button>
-              <p>Members receive free delivery to pick up points for purchases over €30.</p>
+              <p>Members receive free delivery to pick up points for purchases over €80.</p>
               <h4 className="mt-4 mb-3">Description and Fit</h4>
               <Collapse in={true}>
                 <div>
@@ -297,10 +253,11 @@ const MenPage = ({ cartItems, setCartItems }) => {
           ))}
           <div className="cart-buttons mt-4">
             <Link to="/viewcart" className="btn btn-outline-dark mr-2">View Cart</Link>
-            <Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
+            </div>
+            {/*<Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
           </div>
           <p className="mt-3">Free Delivery Worldwide*</p>
-          <p>More info here...</p>
+          <p>More info here...</p>*/}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseCartModal}>Close</Button>

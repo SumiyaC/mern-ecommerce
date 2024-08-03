@@ -1,0 +1,35 @@
+/* src/components/NewsLetterSignUp.css */
+
+.newsletter-signup {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+  }
+  
+  .newsletter-signup h2 {
+    margin-bottom: 20px;
+  }
+  
+  .newsletter-signup .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .newsletter-signup .btn {
+    width: 100%;
+  }
+  
+  .newsletter-signup .alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+  
+  .newsletter-signup .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+  

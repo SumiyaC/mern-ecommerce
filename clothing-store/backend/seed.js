@@ -1,6 +1,6 @@
 
 const mongoose = require('mongoose');
-const Product = require('./product'); // Adjust the path as necessary
+const Product = require('./models/product'); // Adjust the path as necessary
 const products = require('./products.json');
 require('dotenv').config();
 
