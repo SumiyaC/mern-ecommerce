@@ -166,7 +166,7 @@ app.post('/api/subscribe', async (req, res) => {
 });
 
 // Create payment intent endpoint
-app.post('/api/create-payment-intent', async (req, res) => {
+app.post('/create-payment-intent', async (req, res) => {
   const { amount, currency } = req.body;
 
   // Convert amount to cents if currency is EUR
