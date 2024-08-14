@@ -1,63 +1,3 @@
-
-// require('dotenv').config(); // Ensure this line is at the top
-
-// const express = require('express');
-// const cors = require('cors');
-// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Use environment variable for security
-// const path = require('path');
-// const bodyParser = require('body-parser');
-// const mongoose = require('mongoose');
-// const productRoutes = require('./productRoutes'); // Import product routes
-
-// const app = express();
-// app.use(cors());
-// app.use(bodyParser.json());
-
-// // MongoDB connection
-// mongoose.connect(process.env.MONGODB_URI)
-//   .then(() => console.log('Connected to MongoDB Atlas'))
-//   .catch(error => console.error('MongoDB connection error:', error));
-
-// // Serve static files from the 'public' directory
-// app.use('/public', express.static(path.join(__dirname, '..', 'public')));
-
-// app.post('/create-payment-intent', async (req, res) => {
-//   let { amount, currency } = req.body;
-
-//   // Convert amount to cents if currency is EUR
-//   if (currency && currency.toLowerCase() === 'eur') {
-//     amount = Math.round(parseFloat(amount) * 100); // Convert amount to cents
-//   } else {
-//     // Handle other currencies if needed
-//   }
-
-//   try {
-//     const paymentIntent = await stripe.paymentIntents.create({
-//       amount,
-//       currency: currency || 'eur', // Set default currency to EUR if not provided
-//     });
-//     res.send({ clientSecret: paymentIntent.client_secret });
-//   } catch (error) {
-//     console.error('Error creating payment intent:', error);
-//     res.status(500).send({ error: error.message });
-//   }
-// });
-
-// // API endpoints for products
-// app.use('/api', productRoutes); // Use product routes under /api
-
-// // Serve React app (if applicable)
-// app.use(express.static(path.join(__dirname, '..', 'build')));
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-// });
-
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
-// server.js
-
 // require('dotenv').config(); // Ensure this line is at the top
 
 // const express = require('express');
@@ -65,6 +5,7 @@
 // const path = require('path');
 // const bodyParser = require('body-parser');
 // const mongoose = require('mongoose');
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Import Stripe
 // const productRoutes = require('./routes/productRoutes'); // Import product routes
 // const User = require('./models/User'); // Import User model
 
@@ -73,7 +14,7 @@
 // app.use(bodyParser.json());
 
 // // MongoDB connection
-// mongoose.connect(process.env.MONGODB_URI)
+// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 //   .then(() => console.log('Connected to MongoDB Atlas'))
 //   .catch(error => console.error('MongoDB connection error:', error));
 
@@ -98,9 +39,30 @@
 //     // Create a new user
 //     const newUser = new User({ name, email });
 //     await newUser.save();
-//     res.status(200).json({ message: 'Singed up successfully' });
+//     res.status(200).json({ message: 'Signed up successfully' });
 //   } catch (error) {
 //     console.error('Error subscribing user:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+// // Create payment intent endpoint
+// app.post('/create-payment-intent', async (req, res) => {
+//   const { amount, currency } = req.body;
+
+//   // Convert amount to cents if currency is EUR
+//   const amountInCents = currency && currency.toLowerCase() === 'eur'
+//     ? Math.round(parseFloat(amount) * 100) // Convert amount to cents
+//     : Math.round(parseFloat(amount)); // Assume amount is in cents for other currencies
+
+//   try {
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       amount: amountInCents,
+//       currency: currency || 'usd', // Default to USD if no currency is provided
+//     });
+//     res.status(200).json({ clientSecret: paymentIntent.client_secret });
+//   } catch (error) {
+//     console.error('Error creating payment intent:', error);
 //     res.status(500).json({ error: 'Internal Server Error' });
 //   }
 // });
@@ -117,6 +79,7 @@
 // const PORT = process.env.PORT || 5000;
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
+
 require('dotenv').config(); // Ensure this line is at the top
 
 const express = require('express');
@@ -125,7 +88,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Import Stripe
+const session = require('express-session'); // Import express-session
+const passport = require('passport'); // Import Passport
 const productRoutes = require('./routes/productRoutes'); // Import product routes
+const authRoutes = require('./routes/authRoutes'); // Import auth routes
 const User = require('./models/User'); // Import User model
 
 const app = express();
@@ -137,8 +103,26 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .then(() => console.log('Connected to MongoDB Atlas'))
   .catch(error => console.error('MongoDB connection error:', error));
 
+// Session management
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Passport configuration
+require('./config/passport')(passport);
+
 // API endpoints for products
 app.use('/api', productRoutes); // Use product routes under /api
+
+// API endpoints for authentication
+app.use('/auth', authRoutes); // Use auth routes under /auth
 
 // Subscribe endpoint for newsletter
 app.post('/api/subscribe', async (req, res) => {
