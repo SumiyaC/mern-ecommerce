@@ -41,7 +41,8 @@ import WomenPage from './pages/WomenPage';
 import MenPage from './pages/MenPage';
 import ViewCartPage from './pages/ViewCartPage';
 import CheckoutPage from './pages/CheckoutPage';
-import Register from './components/Register';
+//import Register from './components/Register';
+import Login from './components/Login';
 import './App.css';
 
 function App() {
@@ -61,7 +62,8 @@ function App() {
           <Route path="/men" element={<MenPage cartItems={cartItems} setCartItems={setCartItems} />} />
           <Route path="/viewcart" element={<ViewCartPage cartItems={cartItems} handleRemoveFromCart={handleRemoveFromCart} />} />
           <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
-          <Route path="/register" element={<Register />} /> {/* New Route for Registration */}
+          {/* <Route path="/register" element={<Register />} />  */}
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>
