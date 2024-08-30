@@ -38,38 +38,65 @@
 // export default GoogleLoginComponent;
 // GoogleLogin.js
 // src/components/GoogleLogin.js
-import React from 'react';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+// import React from 'react';
+// import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
+// import axios from 'axios';
 
-const GoogleLoginComponent = () => {
-  const handleGoogleSuccess = async (credentialResponse) => {
-    try {
-      // Send the token to the server
-      const response = await axios.post('/auth/google', {
-        token: credentialResponse.credential, // This is the token you get from Google
-      });
-      if (response.data) {
-        window.location.href = '/'; // Redirect after successful login
-      }
-    } catch (error) {
-      console.error('Google Login Error:', error);
-    }
+// const GoogleLoginComponent = () => {
+//   const handleGoogleSuccess = async (credentialResponse) => {
+//     try {
+//       // Send the token to the server
+//       const response = await axios.post('/auth/google', {
+//         token: credentialResponse.credential, // This is the token you get from Google
+//       });
+//       if (response.data) {
+//         window.location.href = '/'; // Redirect after successful login
+//       }
+//     } catch (error) {
+//       console.error('Google Login Error:', error);
+//     }
+//   };
+
+//   const handleGoogleFailure = (error) => {
+//     console.error('Google Login Failed:', error);
+//   };
+
+//   return (
+//     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+//       <GoogleLogin
+//         onSuccess={handleGoogleSuccess}
+//         onError={handleGoogleFailure}
+//         useOneTap
+//       />
+//     </GoogleOAuthProvider>
+//   );
+// };
+
+// export default GoogleLoginComponent;
+//------------------
+// src/components/GoogleLogin.js
+import React from 'react';
+import { GoogleLogin } from '@react-oauth/google';
+import jwtDecode from 'jwt-decode';  // Import jwtDecode correctly
+
+const GoogleLoginButton = ({ onSuccess }) => {
+  const handleSuccess = (response) => {
+    const credential = response.credential;
+    const userObject = jwtDecode(credential);  // Decode JWT
+    console.log(userObject);
+    if (onSuccess) onSuccess(credential);  // Call parent onSuccess callback
   };
 
-  const handleGoogleFailure = (error) => {
-    console.error('Google Login Failed:', error);
+  const handleError = (error) => {
+    console.error('Login failed:', error);
   };
 
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <GoogleLogin
-        onSuccess={handleGoogleSuccess}
-        onError={handleGoogleFailure}
-        useOneTap
-      />
-    </GoogleOAuthProvider>
+    <GoogleLogin
+      onSuccess={handleSuccess}
+      onError={handleError}
+    />
   );
 };
 
-export default GoogleLoginComponent;
+export default GoogleLoginButton;

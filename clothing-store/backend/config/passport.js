@@ -53,77 +53,106 @@
 //   });
 // };
 
+// const passport = require('passport');
+// const { OAuth2Client } = require('google-auth-library');
+// const LocalStrategy = require('passport-local').Strategy;
+// const User = require('../models/User');
+// const bcrypt = require('bcryptjs');
+
+// const googleClient = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+
+// // Serialize and deserialize user
+// passport.serializeUser((user, done) => {
+//   done(null, user.id);
+// });
+
+// passport.deserializeUser((id, done) => {
+//   User.findById(id, (err, user) => {
+//     done(err, user);
+//   });
+// });
+
+// // Local Strategy for email/password login
+// passport.use(new LocalStrategy(
+//   { usernameField: 'email' },
+//   async (email, password, done) => {
+//     try {
+//       const user = await User.findOne({ email });
+//       if (!user) {
+//         return done(null, false, { message: 'Incorrect email.' });
+//       }
+
+//       const isMatch = await bcrypt.compare(password, user.password);
+//       if (!isMatch) {
+//         return done(null, false, { message: 'Incorrect password.' });
+//       }
+
+//       return done(null, user);
+//     } catch (err) {
+//       return done(err);
+//     }
+//   }
+// ));
+
+// // Verify Google OAuth Token
+// async function verifyGoogleToken(token) {
+//   const ticket = await googleClient.verifyIdToken({
+//     idToken: token,
+//     audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+//   });
+//   return ticket.getPayload();
+// }
+
+// // Google OAuth Strategy for Google Login
+// passport.use(
+//   'google',
+//   new passport.Strategy(async (req, done) => {
+//     try {
+//       const { token } = req.body;
+//       const googleUser = await verifyGoogleToken(token);
+
+//       let user = await User.findOne({ googleId: googleUser.sub });
+//       if (!user) {
+//         user = new User({
+//           googleId: googleUser.sub,
+//           name: googleUser.name,
+//           email: googleUser.email,
+//         });
+//         await user.save();
+//       }
+
+//       done(null, user);
+//     } catch (err) {
+//       done(err, null);
+//     }
+//   })
+// );
+
+//--------------------------------
+
 const passport = require('passport');
-const { OAuth2Client } = require('google-auth-library');
-const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
 
-const googleClient = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
-
-// Serialize and deserialize user
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => {
-    done(err, user);
+  User.findById(id).then(user => {
+    done(null, user);
   });
 });
 
-// Local Strategy for email/password login
-passport.use(new LocalStrategy(
-  { usernameField: 'email' },
-  async (email, password, done) => {
-    try {
-      const user = await User.findOne({ email });
-      if (!user) {
-        return done(null, false, { message: 'Incorrect email.' });
-      }
-
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-
-      return done(null, user);
-    } catch (err) {
-      return done(err);
-    }
+passport.use(new GoogleStrategy({
+  clientID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+  clientSecret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
+  callbackURL: '/api/auth/google/callback',
+}, async (accessToken, refreshToken, profile, done) => {
+  const existingUser = await User.findOne({ googleId: profile.id });
+  if (existingUser) {
+    return done(null, existingUser);
   }
-));
-
-// Verify Google OAuth Token
-async function verifyGoogleToken(token) {
-  const ticket = await googleClient.verifyIdToken({
-    idToken: token,
-    audience: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-  });
-  return ticket.getPayload();
-}
-
-// Google OAuth Strategy for Google Login
-passport.use(
-  'google',
-  new passport.Strategy(async (req, done) => {
-    try {
-      const { token } = req.body;
-      const googleUser = await verifyGoogleToken(token);
-
-      let user = await User.findOne({ googleId: googleUser.sub });
-      if (!user) {
-        user = new User({
-          googleId: googleUser.sub,
-          name: googleUser.name,
-          email: googleUser.email,
-        });
-        await user.save();
-      }
-
-      done(null, user);
-    } catch (err) {
-      done(err, null);
-    }
-  })
-);
+  const user = await new User({ googleId: profile.id, email: profile.emails[0].value }).save();
+  done(null, user);
+}));

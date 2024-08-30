@@ -183,104 +183,145 @@
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 
-require('dotenv').config(); // Ensure this line is at the top
+// require('dotenv').config(); // Ensure this line is at the top
+
+// const express = require('express');
+// const cors = require('cors');
+// const path = require('path');
+// const bodyParser = require('body-parser');
+// const mongoose = require('mongoose');
+// const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Import Stripe
+// const session = require('express-session'); // Import express-session
+// const passport = require('passport'); // Import Passport
+// const productRoutes = require('./routes/productRoutes'); // Import product routes
+// const authRoutes = require('./routes/authRoutes'); // Import auth routes
+// const User = require('./models/User'); // Import User model
+
+// const app = express();
+// app.use(cors());
+// app.use(bodyParser.json());
+
+// // MongoDB connection
+// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log('Connected to MongoDB Atlas'))
+//   .catch(error => console.error('MongoDB connection error:', error));
+
+// // Session management
+// app.use(session({
+//   secret: process.env.SESSION_SECRET, // Ensure you have SESSION_SECRET in your .env file
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { secure: false } // Set to true if using HTTPS
+// }));
+
+// // Passport middleware
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// // Passport configuration
+// //require('./config/passport')(passport);
+
+// // API endpoints for products
+// app.use('/api', productRoutes); // Use product routes under /api
+
+// // API endpoints for authentication
+// app.use('/auth', authRoutes); // Use auth routes under /auth
+
+// // Subscribe endpoint for newsletter
+// app.post('/api/subscribe', async (req, res) => {
+//   const { name, email } = req.body;
+
+//   if (!email) {
+//     return res.status(400).json({ error: 'Email is required' });
+//   }
+
+//   try {
+//     // Check if user already exists
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(409).json({ error: 'Email already subscribed' });
+//     }
+
+//     // Create a new user
+//     const newUser = new User({ name, email });
+//     await newUser.save();
+//     res.status(200).json({ message: 'Signed up successfully' });
+//   } catch (error) {
+//     console.error('Error subscribing user:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+// // Create payment intent endpoint
+// app.post('/create-payment-intent', async (req, res) => {
+//   const { amount, currency } = req.body;
+
+//   // Convert amount to cents if currency is EUR
+//   const amountInCents = currency && currency.toLowerCase() === 'eur'
+//     ? Math.round(parseFloat(amount) * 100) // Convert amount to cents
+//     : Math.round(parseFloat(amount)); // Assume amount is in cents for other currencies
+
+//   try {
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       amount: amountInCents,
+//       currency: currency || 'usd', // Default to USD if no currency is provided
+//     });
+//     res.status(200).json({ clientSecret: paymentIntent.client_secret });
+//   } catch (error) {
+//     console.error('Error creating payment intent:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
+// // Serve static files from the 'public' directory
+// app.use('/public', express.static(path.join(__dirname, '..', 'public')));
+
+// // Serve React app (if applicable)
+// app.use(express.static(path.join(__dirname, '..', 'build')));
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+// });
+
+// const PORT = process.env.PORT || 5000;
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+//-------------------------------------------
 
 const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); // Import Stripe
-const session = require('express-session'); // Import express-session
-const passport = require('passport'); // Import Passport
-const productRoutes = require('./routes/productRoutes'); // Import product routes
-const authRoutes = require('./routes/authRoutes'); // Import auth routes
-const User = require('./models/User'); // Import User model
+const dotenv = require('dotenv');
+const passport = require('passport');
+const session = require('express-session');
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');  // Import userRoutes
+//const passportConfig = require('./config/passport');
+
+// Load environment variables
+dotenv.config();
 
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
 
-// MongoDB connection
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB Atlas'))
-  .catch(error => console.error('MongoDB connection error:', error));
-
-// Session management
-app.use(session({
-  secret: process.env.SESSION_SECRET, // Ensure you have SESSION_SECRET in your .env file
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false } // Set to true if using HTTPS
-}));
-
-// Passport middleware
+// Middleware
+app.use(express.json());
+app.use(session({ secret: process.env.JWT_SECRET, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Passport configuration
-//require('./config/passport')(passport);
+// MongoDB connection
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((err) => console.log(err));
 
-// API endpoints for products
-app.use('/api', productRoutes); // Use product routes under /api
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);  // Use productRoutes
+app.use('/api/users', userRoutes);  // Use userRoutes
 
-// API endpoints for authentication
-app.use('/auth', authRoutes); // Use auth routes under /auth
-
-// Subscribe endpoint for newsletter
-app.post('/api/subscribe', async (req, res) => {
-  const { name, email } = req.body;
-
-  if (!email) {
-    return res.status(400).json({ error: 'Email is required' });
-  }
-
-  try {
-    // Check if user already exists
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(409).json({ error: 'Email already subscribed' });
-    }
-
-    // Create a new user
-    const newUser = new User({ name, email });
-    await newUser.save();
-    res.status(200).json({ message: 'Signed up successfully' });
-  } catch (error) {
-    console.error('Error subscribing user:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-// Create payment intent endpoint
-app.post('/create-payment-intent', async (req, res) => {
-  const { amount, currency } = req.body;
-
-  // Convert amount to cents if currency is EUR
-  const amountInCents = currency && currency.toLowerCase() === 'eur'
-    ? Math.round(parseFloat(amount) * 100) // Convert amount to cents
-    : Math.round(parseFloat(amount)); // Assume amount is in cents for other currencies
-
-  try {
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amountInCents,
-      currency: currency || 'usd', // Default to USD if no currency is provided
-    });
-    res.status(200).json({ clientSecret: paymentIntent.client_secret });
-  } catch (error) {
-    console.error('Error creating payment intent:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-// Serve static files from the 'public' directory
-app.use('/public', express.static(path.join(__dirname, '..', 'public')));
-
-// Serve React app (if applicable)
-app.use(express.static(path.join(__dirname, '..', 'build')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
-
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

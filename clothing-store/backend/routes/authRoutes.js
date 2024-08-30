@@ -52,34 +52,90 @@
 // module.exports = router;
 
 // authRoutes.js
+// const express = require('express');
+// const axios = require('axios');
+// const User = require('../models/User'); // Adjust the path to your User model
+// const router = express.Router();
+
+// // Google login route
+// router.post('/auth/google', async (req, res) => {
+//   const { token } = req.body; // This is the token from the client
+
+//   try {
+//     // Verify the token with Google
+//     const response = await axios.get(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`);
+//     const { sub: googleId, name, email } = response.data; // Extract user info from token
+
+//     // Check if user already exists in the database
+//     let user = await User.findOne({ googleId });
+//     if (!user) {
+//       // If user doesn't exist, create a new one
+//       user = new User({ googleId, name, email });
+//       await user.save();
+//     }
+
+//     // Send user information back to client
+//     res.json({ message: 'Google login successful', user });
+//   } catch (error) {
+//     console.error('Google Login Error:', error);
+//     res.status(401).json({ message: 'Google login failed' });
+//   }
+// });
+
+// module.exports = router;
+
+//------------------
+
 const express = require('express');
-const axios = require('axios');
-const User = require('../models/User'); // Adjust the path to your User model
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const User = require('../models/User');
+
 const router = express.Router();
 
-// Google login route
-router.post('/auth/google', async (req, res) => {
-  const { token } = req.body; // This is the token from the client
-
+// Register user with email and password
+router.post('/register', async (req, res) => {
+  const { email, password } = req.body;
   try {
-    // Verify the token with Google
-    const response = await axios.get(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${token}`);
-    const { sub: googleId, name, email } = response.data; // Extract user info from token
+    let user = await User.findOne({ email });
+    if (user) return res.status(400).json({ message: 'User already exists' });
 
-    // Check if user already exists in the database
-    let user = await User.findOne({ googleId });
-    if (!user) {
-      // If user doesn't exist, create a new one
-      user = new User({ googleId, name, email });
-      await user.save();
-    }
+    user = new User({ email, password });
+    await user.save();
 
-    // Send user information back to client
-    res.json({ message: 'Google login successful', user });
-  } catch (error) {
-    console.error('Google Login Error:', error);
-    res.status(401).json({ message: 'Google login failed' });
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token, user });
+  } catch (err) {
+    res.status(500).send('Server error');
   }
 });
 
+// Login user with email and password
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token, user });
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
+});
+
+// Google OAuth login
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.redirect(`/dashboard?token=${token}`);
+  }
+);
+
 module.exports = router;
+
