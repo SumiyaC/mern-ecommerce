@@ -3,8 +3,11 @@
 # dependencies
 /node_modules
 /backend/.env
+filelist.txt
+
 /.pnp
 .pnp.js
+
 
 # testing
 /coverage

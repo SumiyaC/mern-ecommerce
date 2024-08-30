@@ -219,7 +219,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport configuration
-require('./config/passport')(passport);
+//require('./config/passport')(passport);
 
 // API endpoints for products
 app.use('/api', productRoutes); // Use product routes under /api
