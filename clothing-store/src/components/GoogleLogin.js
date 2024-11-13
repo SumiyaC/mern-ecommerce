@@ -29,11 +29,7 @@
 // src/components/GoogleLogin.js
 import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-<<<<<<< HEAD
 import { jwtDecode } from 'jwt-decode';
-=======
-import { jwtDecode } from 'jwt-decode';  // Import jwtDecode correctly
->>>>>>> 5a67cc31d9ee84e880aab09fc2178409604e89fa
 
 const GoogleLoginButton = ({ onSuccess }) => {
   const handleSuccess = (response) => {
