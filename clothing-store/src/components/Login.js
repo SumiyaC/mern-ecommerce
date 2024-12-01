@@ -318,7 +318,7 @@ const Login = () => {
         onSuccess={handleGoogleSuccess}
         onError={handleGoogleFailure} // Use new error handler
         useOneTap // Optional for Google one-tap login
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID} // Ensure the correct client ID
+        client_id="170156368361-l9mkbla74b5mmg0jckv9e53m7vja9kil.apps.googleusercontent.com" // Ensure the correct client ID
       />
     </div>
   );
