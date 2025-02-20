@@ -1,5 +1,3 @@
-/* src/pages/HomePage.css */
-
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&display=swap');
 
 body {
@@ -7,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #f7f7f7; /* Very light gray background */
+  background-color: #f7f7f7;
 }
 
 .homepage {
@@ -16,14 +14,14 @@ body {
 
 .main-section {
   position: relative;
-  height: 75vh; /* Adjust the height to fit 2/3 of the viewport height */
+  height: 75vh;
   overflow: hidden;
 }
 
 .main-image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the image covers the area without distortion */
+  object-fit: cover;
 }
 
 .main-text {
@@ -35,7 +33,7 @@ body {
   font-size: 35px;
   font-weight: bold;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 40px 60px; /* Increase the padding to make the background larger */
+  padding: 40px 60px;
   text-align: center;
 }
 
@@ -45,11 +43,11 @@ body {
 
 .categories-section h2, .featured-products-section h2 {
   margin-bottom: 20px;
-  font-size: 30px; /* Increase font size for headers */
-  font-weight: 700; /* Make headers bold */
-  text-align: center; /* Center align the headers */
-  color: #333; /* Darker color for better visibility */
-  text-transform: uppercase; /* Uppercase text for a more professional look */
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+  text-transform: uppercase;
 }
 
 .categories, .products {
@@ -65,15 +63,15 @@ body {
 
 .category img, .product img {
   width: 100%;
-  height: 200px; /* Adjust height as needed */
-  object-fit: cover; /* Ensures the image covers the area without distortion */
+  height: 200px;
+  object-fit: cover;
 }
 
 .category-name, .product-name {
   margin-top: 10px;
   font-size: 18px;
   font-weight: 700;
-  color: #555; /* Slightly darker color for category/product names */
+  color: #555;
 }
 
 .view-all {
@@ -84,18 +82,17 @@ body {
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  color: white; /* White text color */
-  background-color: #007bff; /* Blue background color */
-  border: none; /* No border */
+  color: white;
+  background-color: #007bff;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .view-all button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
-/* Newsletter Section Specific Styles */
 
 .newsletter-section {
   margin-top: 40px;
@@ -104,10 +101,9 @@ body {
 
 .newsletter-section h2.newsletter-heading {
   margin-bottom: 0;
-  font-size: 18px; /* Set the desired font size */
-  /* font-weight: bold; */
-  color: #333; /* Darker color for better visibility */
-  text-transform: none; /* Prevent uppercase transformation */
+  font-size: 18px;
+  color: #333;
+  text-transform: none;
 }
 
 .newsletter-section .ms-3 {
@@ -118,7 +114,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px; /* Add some space between the text and the form */
+  margin-top: 10px;
 }
 
 .newsletter-section form input {
@@ -130,15 +126,15 @@ body {
 }
 
 .newsletter-section form button {
-  padding: 10px 20px; /* Increased padding for a consistent button size */
+  padding: 10px 20px;
   font-size: 16px;
   border: none;
-  background-color: #007bff; /* Blue background color */
-  color: white; /* White text color */
-  border-radius: 0 5px 5px 0; /* Adjust border-radius for the button */
+  background-color: #007bff;
+  color: white;
+  border-radius: 0 5px 5px 0;
   cursor: pointer;
 }
 
 .newsletter-section form button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }

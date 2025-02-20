@@ -1,9 +1,6 @@
-
-
-// src/App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google';  // Import GoogleOAuthProvider
+import { GoogleOAuthProvider } from '@react-oauth/google'; // Import GoogleOAuthProvider
 import NavigationBar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import WomenPage from './pages/WomenPage';
@@ -17,7 +14,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const handleRemoveFromCart = (id) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
   };
 
   return (
@@ -27,11 +24,27 @@ function App() {
         <div className="container mt-3">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/women" element={<WomenPage cartItems={cartItems} setCartItems={setCartItems} />} />
-            <Route path="/men" element={<MenPage cartItems={cartItems} setCartItems={setCartItems} />} />
-            <Route path="/viewcart" element={<ViewCartPage cartItems={cartItems} handleRemoveFromCart={handleRemoveFromCart} />} />
-            <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
+            <Route
+              path="/women"
+              element={<WomenPage cartItems={cartItems} setCartItems={setCartItems} />}
+            />
+            <Route
+              path="/men"
+              element={<MenPage cartItems={cartItems} setCartItems={setCartItems} />}
+            />
+            <Route
+              path="/viewcart"
+              element={<ViewCartPage
+                cartItems={cartItems}
+                handleRemoveFromCart={handleRemoveFromCart}
+              />}
+            />
+            <Route
+              path="/checkout"
+              element={<CheckoutPage cartItems={cartItems} />}
+            />
             <Route path="/login" element={<Login />} />
+  
           </Routes>
         </div>
       </Router>
@@ -40,4 +53,3 @@ function App() {
 }
 
 export default App;
-
