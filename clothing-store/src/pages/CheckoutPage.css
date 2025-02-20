@@ -1,32 +1,32 @@
 .checkout-container {
-  padding-top: 40px; /* Add padding to top for spacing */
+  padding-top: 40px; 
 }
 
 .checkout-heading {
-  font-size: 24px; /* Adjust heading font size */
-  margin-bottom: 20px; /* Add margin bottom for spacing */
+  font-size: 24px; 
+  margin-bottom: 20px;
 }
 
 .checkout-section {
-  padding-right: 20px; /* Add padding to right side of checkout section */
+  padding-right: 20px;
 }
 
 .payment-details-section {
-  background-color: #f8f9fa; /* Light background color for payment details */
+  background-color: #f8f9fa;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
 }
 
 .payment-details {
-  margin-bottom: 20px; /* Add margin bottom for spacing */
+  margin-bottom: 20px;
 }
 
 .payment-details h3 {
-  font-size: 20px; /* Payment details section heading font size */
-  margin-bottom: 10px; /* Add margin bottom for spacing */
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .payment-details p {
-  margin-bottom: 8px; /* Add margin bottom for spacing between details */
+  margin-bottom: 8px;
 }

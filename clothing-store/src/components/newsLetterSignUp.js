@@ -7,7 +7,7 @@ const NewsLetterSignUp = ({ onClose }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [message, setMessage] = useState(null);
-  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+  const [messageType, setMessageType] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ const NewsLetterSignUp = ({ onClose }) => {
       setTimeout(() => {
         setMessage(null);
         onClose();
-      }, 3000); // Close the modal after 3 seconds
+      }, 3000);
     } catch (error) {
       setMessage(error.response?.data?.error || 'Something went wrong.');
       setMessageType('error');
