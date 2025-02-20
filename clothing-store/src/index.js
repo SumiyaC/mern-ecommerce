@@ -1,10 +1,9 @@
-// src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
-import './components/Navbar.css'; // Import the Navbar CSS file
+import './components/Navbar.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

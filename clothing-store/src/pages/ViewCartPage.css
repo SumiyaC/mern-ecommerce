@@ -1,4 +1,3 @@
-/* ViewCartPage.css */
 .cart-item {
     margin-bottom: 20px;
   }
@@ -9,7 +8,7 @@
   
   .remove-button {
     color: #fff;
-    background-color: #fff; /* Ensure the button has a white color */
+    background-color: #fff;
     border-color: #000;
   }
   
