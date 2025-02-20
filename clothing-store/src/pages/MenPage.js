@@ -25,7 +25,7 @@ const MenPage = ({ cartItems, setCartItems }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/products?category=men'); // Update URL to point to your backend server
+        const response = await axios.get('http://localhost:5000/api/products?category=men');
         setProducts(response.data);
         setLoading(false);
       } catch (error) {
@@ -168,7 +168,6 @@ const MenPage = ({ cartItems, setCartItems }) => {
         )}
       </Row>
 
-      {/* Modal for detailed view */}
       <Modal show={showModal} onHide={handleCloseModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{selectedProduct && selectedProduct.name}</Modal.Title>
@@ -228,7 +227,6 @@ const MenPage = ({ cartItems, setCartItems }) => {
         </Modal.Footer>
       </Modal>
 
-      {/* Modal for cart details */}
       <Modal show={showCartModal} onHide={handleCloseCartModal} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>My Cart, {cartItems.length} item(s)</Modal.Title>
@@ -254,10 +252,6 @@ const MenPage = ({ cartItems, setCartItems }) => {
           <div className="cart-buttons mt-4">
             <Link to="/viewcart" className="btn btn-outline-dark mr-2">View Cart</Link>
             </div>
-            {/*<Button variant="primary" onClick={handleCloseCartModal}>Checkout</Button>
-          </div>
-          <p className="mt-3">Free Delivery Worldwide*</p>
-          <p>More info here...</p>*/}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseCartModal}>Close</Button>
