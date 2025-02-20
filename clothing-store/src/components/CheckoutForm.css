@@ -1,22 +1,21 @@
    .form-group {
-    margin-bottom: 1rem; /* Example margin for form groups */
+    margin-bottom: 1rem;
   }
   
   .form-control {
-    width: 100%; /* Example width for form controls */
-    padding: 0.375rem 0.75rem; /* Example padding for form controls */
-    font-size: 1rem; /* Example font size for form controls */
-    line-height: 1.5; /* Example line height for form controls */
-    color: #495057; /* Example text color for form controls */
-    background-color: #fff; /* Example background color for form controls */
+    width: 100%;
+    padding: 0.375rem 0.75rem; 
+    font-size: 1rem; 
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #ced4da; /* Example border for form controls */
-    border-radius: 0.25rem; /* Example border radius for form controls */
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Example transition for form controls */
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
   
   .card-element {
-    /* Example styles for CardElement */
     margin-top: 10px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -24,35 +23,32 @@
   }
   
   .pay-button {
-    /* Example styles for Pay button */
-    background-color: #007bff; /* Blue background color */
+    background-color: #007bff;
     border-radius: 5px;
-    color: white; /* White text */
-    padding: 12px 20px; /* Padding */
-    font-size: 16px; /* Font size */
-    border: none; /* Remove border */
-    cursor: pointer; /* Pointer cursor */
-    border-radius: 4px; /* Rounded corners */
-    margin-top: 10px; /* Top margin */
+    color: white; 
+    padding: 12px 20px; 
+    font-size: 16px; 
+    border: none; 
+    cursor: pointer;
+    border-radius: 4px; 
+    margin-top: 10px;
   }
   
   .pay-button:hover {
-    background-color: #0056b3; /* Darker green on hover */
+    background-color: #0056b3; 
   }
   
   .pay-button:disabled {
-    background-color: #cccccc; /* Greyed out when disabled */
-    cursor: not-allowed; /* Disabled cursor */
+    background-color: #cccccc; 
+    cursor: not-allowed; 
   }
   
   .card-error {
-    /* Example styles for card error message */
     color: red;
     margin-top: 10px;
   }
   
   .payment-success {
-    /* Example styles for payment success message */
     color: green;
     margin-top: 10px;
   }

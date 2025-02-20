@@ -3,9 +3,9 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from '../components/CheckoutForm';
-import './CheckoutPage.css'; // Import your custom CSS for styling
+import './CheckoutPage.css';
 
-const stripePromise = loadStripe('pk_test_51PZ9euAtrmBnkwD0qqKNs8QhH1UknWfUQOiNecfSpw5BJPgRe9pnFAT0Cxsug6tVxUHDd2IrVGfEo3kKzebymOFE007Y0XtFk4'); // Replace with your actual publishable key
+const stripePromise = loadStripe('pk_test_51PZ9euAtrmBnkwD0qqKNs8QhH1UknWfUQOiNecfSpw5BJPgRe9pnFAT0Cxsug6tVxUHDd2IrVGfEo3kKzebymOFE007Y0XtFk4');
 const CheckoutPage = ({ cartItems }) => {
   const subTotal = cartItems ? cartItems.reduce((total, item) => total + item.price * item.quantity, 0) : 0;
   const deliveryCharge = 8.00;

@@ -1,9 +1,7 @@
-
-
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import './CheckoutForm.css'; // Import your existing CSS file for CheckoutForm
+import './CheckoutForm.css'; 
 
 const CheckoutForm = ({ amount }) => {
   const stripe = useStripe();
@@ -20,8 +18,8 @@ const CheckoutForm = ({ amount }) => {
 
     try {
       const { data } = await axios.post('http://localhost:5000/create-payment-intent', {
-        amount: Math.round(parseFloat(amount) * 100), // Convert amount to cents
-        currency: 'eur', // Hardcoded EUR, adjust if necessary
+        amount: Math.round(parseFloat(amount) * 100),
+        currency: 'eur', 
       });
       const clientSecret = data.clientSecret;
 
@@ -38,7 +36,7 @@ const CheckoutForm = ({ amount }) => {
         setError(`Payment failed: ${result.error.message}`);
       } else {
         setSucceeded(true);
-        setMessage('Payment succeeded! Order details sent to your email. Your shipment will arrive within 5 business days.');
+        setMessage('Payment succeeded! Order details sent to your email. Your shipment will arrive within 7 business days.');
         setError(null);
       }
     } catch (err) {
@@ -73,7 +71,7 @@ const CheckoutForm = ({ amount }) => {
                 },
               },
             },
-            hidePostalCode: true, // Hide the Postal Code (Zip Code) field
+            hidePostalCode: true,
           }}
           className="card-element"
         />
